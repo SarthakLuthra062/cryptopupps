@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RARECITY</title>
+  <title>CryptoPupps</title>
   <script src="https://unpkg.com/anchor-link@3"></script>
   <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
   <script src="waxjs.js"></script>
@@ -18,33 +18,35 @@
             <nav>
                 <div class="logo">
                     <a href="#">
-                        <img class="logoimg" src="./assets/Logo.png" alt="">
+                        <img class="logoimg" src="./assets/Logo (2).png" alt="">
                     </a>
                 </div>
+                <li>
+                    <input class="returnbtn" id="return" src="./assets/buttons/back.png" style="display: none;" onclick="returnbtn()" type="image">
+                </li>
                 <ul class="nav-items">
                     <li>
-                        <div id="blc" class="blc" style="display: none;">
-                            <input class="img" src="./assets/Token.png" type="image"><br>
-                            <p id="balance" class="balance">0.0000 RARc</p>
-                        </div>
+                        <input class="btn barbtn" id = "stakingbar" style="display: none;" onclick="switchshop(false)" value="Staking" type="button">
                     </li>
                     <li>
-                        <input class="btn" id="shop" src="./assets/shop.png" style="display: none;" onclick="switchshop(true)" type="image">
-                        <input class="btn" id="stakingbar" src="./assets/stakingbtn.png" style="display: none;" onclick="switchshop(false)" type="image">
+                        <input class="btn barbtn" id = "shop" style="display: none;" onclick="switchshop(true)" value="Shop" type="button">
                     </li>
                     <li>
-                        <input class="btn" id="claim" style="display: none;" src="./assets/Claim.png" onclick="claimbalance()" type="image">
+                        <input class="btn barbtn" id = "claim" style="display: none;" onclick="claimbalance()" value="Claim" type="button">
                     </li>
                     <li>
-                        <input class="btn" id="loggedout" src="./assets/Login.png" onclick="WalletListVisible(!0)" type="image">
-                        <input class="btn" id="loggedin" src="./assets/Logout.png" onclick="logout()" style="display: none;" type="image">
+                        <input class="btn barbtn" id = "loggedout" onclick="WalletListVisible(!0)" value="Login" type="button">
+                        <input class="btn barbtn" id = "loggedin" style="display: none;" onclick="logout()" value="Logout" type="button">
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
     <div class="header-container">
-        <div class="sidebar">
+        <div class="home" id="home">
+            <span style="display: inline-block;margin: 250px;font-weight: bold;">CRYPTOPUPPYZZ<br><span style="font-size:25px;">| STAKING | MARKETPLACE |</span></span>
+        </div>
+        <div class="sidebar" id="sidebar" style="display: none;">
             <div id="sideContent">
                 <p class="sidebar-title">Available Collections</p>
                 <div class="sidebar-title"><div id='sidebar-content'></div>
@@ -57,17 +59,26 @@
                     <div class="lds-circle"><div></div></div>
                 </div>
                 <div id="lvlloader" style="display: none;">
-                    <img id="lvlimg" style="" src="https://media4.giphy.com/media/St3iie3VZ65VHkobqc/giphy.gif?cid=ecf05e47r7wicv168mlzdsa4bzdvh8jtxpzpodg5g5a69q5j&rid=giphy.gif&ct=g">
+                    <img id="lvlimg" src="https://media4.giphy.com/media/St3iie3VZ65VHkobqc/giphy.gif?cid=ecf05e47r7wicv168mlzdsa4bzdvh8jtxpzpodg5g5a69q5j&rid=giphy.gif&ct=g">
                     <p class="loadingText">Loading ...</p>
                     <div class="lds-circle"><div></div></div>
                 </div>
                 <div class="secondheader">
                     <ul>
                         <li>
+                            <table id="dashboard" style="display: flex;justify-content:center;align-items:center;font-weight:bold;color:black;height: 50px;font-size: 20px;">
+                                <tbody id="tbody">
+                                </tbody>
+                            </table>
+                        </li>
+                        <li>
+                            <div style="height: 20px;"></div>
+                        </li>
+                        <li>
                             <div id="staking" style="display: none;">
-                            <input class="stakeAllbtn btn" id = "stkall"src="./assets/StakeAll.png" onclick="stakeall()" type="image">
-                            <input class="stakeAllbtn btn" src="./assets/wallet.png" onclick="switchstaked(false)" type="image">
-                            <input class="stakeAllbtn btn" src="./assets/inv.png" onclick="switchstaked(true)" type="image">
+                            <input class="stakeAllbtn barbtn" id = "stkall" onclick="stakeall()" value="Stake All" type="button">
+                            <input class="stakeAllbtn barbtn"  onclick="switchstaked(false)" value="Wallet" type="button">
+                            <input class="stakeAllbtn barbtn"  onclick="switchstaked(true)" value="Inventory" type="button">
                             </div>
                         </li>
                     </ul>
@@ -87,9 +98,9 @@
                     </div>
                 </div>
     <script> 
-        const contract = "rarecitystax";
+        const contract = "puppyzzstake";
         const marketContract = "rarecitymrkt";
-        const symbol = "RAREX";
+        const symbol = "KASSU";
     </script>
     <script src="./main.js"></script>
     </div>

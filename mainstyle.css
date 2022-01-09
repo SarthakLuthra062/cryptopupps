@@ -3,8 +3,19 @@
         margin: 0;
     }
 
+    @font-face {
+        font-family: Dog;
+        src: url("./assets/Meows-VGWjy.ttf");
+    }
+
+    home{
+        background-color: rgba(27, 27, 27,0.8);
+        height:1200px;
+        width: 500px;
+    }
+
     body{
-        font-family: "Oswald";
+        font-family: Dog;
         overflow: scroll;
         overflow-y:hidden;
         overflow-x: hidden;
@@ -13,7 +24,10 @@
     .nav-container{
         position: absolute;
         height: 114px;
-        background-color: #11285a;
+        background: url("./assets/navbar.png");
+        background-color: rgba(27, 27, 27,1);
+        border:1px solid white;
+        z-index: 1;
         width: 100%;
     }
 
@@ -37,13 +51,13 @@
         position: absolute;
         width: 144px;
         height: 45px;
-        left: 9px;
-        top: 36px;
+        left: 20px;
+        top: 15px;
     }
 
     .nav-items{
         position: absolute;
-        top: 36px;
+        top: 40px;
         right: 50px;
     }
 
@@ -56,13 +70,27 @@
         margin: 0;
     }
 
-    .sidebar{
+    .home{
         position: absolute;
-        display: table-cell;
-        width: 180px;
+        display: block;
+        align-items: center;
+        text-align:center;
+        font-size: 100px;
+        color: #E4A903;
+        background-color: rgba(27, 27, 27,.95);
+        width: 100%;
         height: 100%;
         top: 110px;
-        background: hsl(222, 73%, 17%);
+        justify-content: center;
+    }
+
+    .sidebar{
+        position: absolute;
+        background-color: rgba(27, 27, 27,1);
+        display: table-cell;
+        width: 180px;
+        height: 110%;
+        top: 110px;
     }
 
     .sidebar-nav-items li{
@@ -120,7 +148,7 @@
         width: 128px;
         height: 40px;
         margin: 0 80px;
-        font-family: Oswald;
+        font-family: Dog;
         font-size: 14px;
         font-weight: 500;
     }
@@ -135,13 +163,15 @@
 
     .collectonsbtn{
         display: table-cell; vertical-align: middle;
-        background-color: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.274);
-        color: white;
-        width: 100%;
+        background: rgba(27,27,27,0.5);
+        border: 3px solid #E4A903;
+        color: #E4A903;
+        width: 98%;
         height:80px;
-        font-family:Oswald;
-        font-size: 16px;
+        font-family:Dog;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
         display: table-cell; vertical-align: middle;
     }
 
@@ -162,7 +192,7 @@
     .maindiv{
         height:95%;
         width: 90%;
-        top: 80px;
+        top: 150px;
         position: absolute;
         border: 1px solid white;
         font: 16px/26px;
@@ -203,11 +233,11 @@
     .itemwrapper {
         border: 3px solid black;
         border-radius: 8px;
-        background-color: rgba(86, 116, 137, 0.25);
+        background-color: rgba(27,27,27,0.9);
         align-items: center;
         align-content: center;
         height: auto;
-        width: 260px;
+        width: 290px;
         font: 16px/26px Georgia, Garamond, Serif;
         padding: 2px;
         display: block;
@@ -257,25 +287,27 @@
     }
 
     .textstyle {
-        color: black;
-        font-family: Oswald;
-        font-weight: 500;
+        color: #E4A903;
+        font-family: Dog;
+        font-weight: bold;
         text-transform: uppercase;
         font-size: 20px;
+        font-weight: bold;
     }
 
     .ratesText {
         color: #D9490D;
+        font-weight: bold;
+        font-size: 25px;
         margin-right: 5px;
     }
 
     .ratediv {
-        font-family: Oswald;
+        font-family: Dog;
         font-weight: bold;
         display: flex;
         justify-content: center;
         width: 100%;
-        font-size: 18px;
     }
 
     .wcw {
@@ -308,50 +340,76 @@
 
     .topbar {
         width: 100%;
-        height: 25px;
-        display: inline-block;
+        height: 22px;
     }
 
     .bar {
         width: 100%;
-        height: 40px;
+        height: 45px;
         display: inline-block;
         justify-content: center;
         align-items: center;
     }
 
+    .shopbtn:hover{
+        background-image: url("assets/buttons/shop_1_hover.png");
+    }
+
+
+    .returnbtn{
+        margin-left: 180px;
+        margin-top: 20px;
+    }
+
+    .returnbtn:hover{
+        background-image: url("assets/buttons/back_hover.png");
+    }
+
     .stkbtn{
-        width: 120px;
+        width: 100px;
         height: 100%;
-        background-color: #D9490D;
         color: white;
         border-radius: 5px;
-        font-family: Oswald;
-        font-size: 16px;
-        font-weight: 900;
-        margin-left: 2px;
-        text-transform: uppercase;
     }
 
     .stkbtn:hover{
         transition-duration: 0.5s;
-        transform: scale(0.9,0.9);
     }
 
     .levelbtn{
         width: 120px;
         height: 100%;
         background-color: #F9BB0C;
-        color: white;
+        color: black;
         border-radius: 5px;
-        font-family: Oswald;
+        font-family: Dog;
         font-size: 16px;
         font-weight: bold;
         margin-right: 2px;
         margin-left: 5px;
         text-transform: uppercase;
     }
+
+    .barbtn{
+        width: 120px;
+        height: 40px;
+        background-color: #F9BB0C;
+        color: black;
+        border: 1px solid white;
+        border-radius: 5px;
+        font-family: Dog;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        z-index: 2;
+    }
+
     .levelbtn:hover{
+        transition-duration: 0.5s;
+        transform: scale(0.9,0.9);
+    }
+
+    .barbtn:hover{
         transition-duration: 0.5s;
         transform: scale(0.9,0.9);
     }
@@ -362,18 +420,18 @@
     }
 
     .level{
-        width: 80px;
+        width: 90%;
         height: 100%;
         background-color: #F9BB0C;
-        color: white;
+        color: black;
         font-weight: bold;
-        font-size: 14px;
-        font-family: Oswald;
-        float: left;
-        margin-left: 2px;
+        font-size: 16px;
+        font-family: Dog;
         margin-top: 1px;
         border-radius: 5px;
+        font-weight: 900;
         text-transform:uppercase;
+        margin: auto;
     }
 
     .n{
@@ -383,7 +441,7 @@
         color: white;
         font-weight: bold;
         font-size: 14px;
-        font-family: 'Courier New', Courier, monospace;
+        font-family: Dog;
         float: right;
         margin-right: 2px;
         margin-top: 1px;
@@ -446,12 +504,12 @@
     }
 
     .balance{
-        background-color: transparent;
         text-decoration: none; 
         border: none;
-        color: white;
-        font-size: 16px;
-        font-family: Oswald;
+        color: rgb(255, 187, 0);
+        font-size: 20px;
+        font-family: Dog;
+        font-weight: bold;
     }
 
     .token{
@@ -460,7 +518,6 @@
     }
 
     .pool{
-        float: left;
         margin-top: 5px;
         margin-left: 5px; 
         margin-right: 20px;
@@ -528,7 +585,7 @@
     .loadingText{
         text-align: center;
         font-size: 30px;
-        font-family: Oswald;
+        font-family: Dog;
         font-weight: 800;
     }
 
@@ -537,9 +594,10 @@
         width: 30px;
         height: 20px;
         border-radius: 5px;
-        font-family: Oswald;
+        font-family: Dog;
         font-size: 15px;
-        color: #D9490D;
+        color: black;
+        font-weight: bold;
     }
        
 
@@ -555,7 +613,7 @@
 
     .logoimg{
         width: 100px;
-        height: 35px;
+        height: 60px;
     }
 
     .btn{
@@ -575,13 +633,13 @@
     }
 
     .img{
-        width: 20px;
-        height: 20px;
+        width: 25px;
+        height: 25px;
     }
 
     .nav-container{
         height: 100px;
-        background-color: #11285a;
+        background-color: rgb(27, 27, 27);
         width: 100%;
         float: right;
     }
@@ -625,7 +683,7 @@
         width: 35px;
         height: 30px;
         border-radius: 5px;
-        font-family: Oswald;
+        font-family: Dog;
         font-size: 15px;
     }
 

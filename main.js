@@ -1,17 +1,17 @@
 const wax = new waxjs.WaxJS({
-  rpcEndpoint: 'https://wax.greymass.com',
+  rpcEndpoint: 'https://waxtestnet.greymass.com',
   tryAutoLogin: false
 });
 const transport = new AnchorLinkBrowserTransport();
-const anchorLink = new AnchorLink({
-  transport,
-  chains: [{
-    chainId: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
-    nodeUrl: 'https://wax.greymass.com',
-  }],
-});
-const dapp = "RareCity";
-const endpoint = "wax.pink.gg";
+    const anchorLink = new AnchorLink({
+      transport,
+      chains: [{
+        chainId: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12',
+        nodeUrl: 'https://waxtestnet.greymass.com',
+      }],
+    });
+const dapp = "CryptoPupps";
+const endpoint = "testnet.wax.pink.gg";
 const tokenContract = {
   WAX: "eosio.token"
 };
@@ -19,56 +19,60 @@ const tokenContract = {
 var t = 0;
 
 var anchorAuth = "owner";
-main();
+var homescreen = true;
 var loggedIn = false;
 var switchtostaked = true;
-var collection = 'rarecitynfts';
+var collection = 'puppyteststk';
 var switchtoshop = false;
 var canclick = false;
 var mainDiv = document.getElementById("maindiv");
 var loader = document.getElementById('loader').style;
 var lvlloader = document.getElementById('lvlloader').style;
 var overflow = document.getElementById('body').style;
+main();
 
 async function main() {
 
   if (!loggedIn)
     autoLogin();
-  else {
+  else if(loggedIn)
+  {
+    console.log("1");
+    console.log(homescreen);
+    if(!homescreen)
+    {
+      clearUi();
+      loader.display = "block";
+      lvlloader.display = "none";
+      ratespromise = GetRates();
+      rates = await ratespromise;
+      console.log("rate " + new Date().toUTCString());
 
-    clearUi();
-    loader.display = "block";
-    lvlloader.display = "none";
+      assetPromise = GetAssets(collection, rates);
+      assets = await assetPromise;
+      console.log("asset " + new Date().toUTCString());
 
-    ratespromise = GetRates();
-    rates = await ratespromise;
-    console.log("rate " + new Date().toUTCString());
+      stakepromise = FilterStaked(assets);
+      staked = await stakepromise;
+      console.log("stk " + new Date().toUTCString());
 
-    assetPromise = 
-    ssets(collection, rates);
-    assets = await assetPromise;
-    console.log("asset " + new Date().toUTCString());
+      userpromise = GetUser(rates, staked);
+      user = await userpromise;
+      console.log("user " + new Date().toUTCString());
 
-    stakepromise = FilterStaked(assets);
-    staked = await stakepromise;
-    console.log("stk " + new Date().toUTCString());
+      balancepromise = GetBalance();
+      balance = await balancepromise;
+      console.log("balance " + new Date().toUTCString());
 
-    userpromise = GetUser(rates, staked);
-    user = await userpromise;
-    console.log("user " + new Date().toUTCString());
+      pack = GetShop();
+      pack_data = await pack;
+      console.log("pack " + new Date().toUTCString());
 
-    balancepromise = GetBalance();
-    balance = await balancepromise;
-    console.log("balance " + new Date().toUTCString());
-
-    pack = GetShop();
-    pack_data = await pack;
-    console.log("pack " + new Date().toUTCString());
-
-    unstaked = FilterUnstaked(assets, staked);
-    !switchtoshop?PopulateMenu(rates,staked, unstaked, user, balance):PopulateShop(pack_data);
-    canclick = true;
-    console.log("ui " + new Date().toUTCString());
+      unstaked = FilterUnstaked(assets, staked);
+      !homescreen?!switchtoshop?PopulateMenu(rates,staked, unstaked, balance):PopulateShop(pack_data,balance):"";
+      canclick = true;
+      console.log("ui " + new Date().toUTCString());
+    }
   }
 }
 
@@ -120,7 +124,6 @@ async function stakeasset(assetId) {
     HideMessage();
 
     try {
-
       const result = await wallet_transact([{
         account: contract,
         name: "stakeassets",
@@ -152,7 +155,7 @@ async function buypack(template,price,qty){
     try {
       totalPrice = (price * qty).toFixed(4);
       const result = await wallet_transact([{
-        account: "rarecitytokn",
+        account: "puppyzztoken",
         name: "transfer",
         authorization: [{
           actor: wallet_userAccount,
@@ -182,92 +185,6 @@ function delay(delayInms) {
       resolve(2);
     }, delayInms);
   });
-}
-
-async function levelup(assetId,price) {
-
-  if (loggedIn) {
-
-    HideMessage();
-
-    try {
-      price = parseInt(price).toFixed(4);
-      const result = await wallet_transact([{
-        account: "rarecitytokn",
-        name: "transfer",
-        authorization: [{
-          actor: wallet_userAccount,
-          permission: anchorAuth
-        }],
-        data: {
-          from: wallet_userAccount,
-          to: marketContract,
-          quantity: price.toString() + " " +  symbol, 
-          memo: assetId + "%levelup"
-        },
-      }, ]);
-      document.getElementById('maindiv').style.display = "none";
-      document.getElementById('staking').style.display = "none";
-      lvlloader.display = "block";
-      await delay(3500);
-      checklevelup(assetId,0);
-    } catch (e) {
-      ShowToast(e.message);
-    }
-  } else {
-    WalletListVisible(true);
-  }
-}
-
-async function checklevelup(assetid,count){
-  var path = "/v1/chain/get_table_rows";
-    var data = JSON.stringify({
-      json: true,
-      code: marketContract,
-      scope: marketContract,
-      table: "upgrades",
-      lower_bound: assetid,
-      upper_bound: assetid,
-      limit: 1,
-    });
-
-    const response = await fetch("https://" + endpoint + path, {
-      headers: {
-        "Content-Type": "text/plain"
-      },
-      body: data,
-      method: "POST",
-    });
-
-    const body = await response.json();
-    count += 1;
-    if(body.rows.length != 0){
-      if(body.rows[0].user == wallet_userAccount && body.rows[0].asset_id == assetid){
-        if(body.rows[0].success == "failed"){
-          ShowToast("Level Up Failed :( Retry Again !");
-          lvlloader.display = "none";
-          document.getElementById('maindiv').style.display = "block";
-          document.getElementById('staking').style.display = "block";
-          return;
-        }
-        else if(body.rows[0].success == "checking"){
-          ShowToast("Checking Again ! Taking Longer Time than Usual");
-          if(count < 5){
-            await delay(1050);
-            checklevelup(assetid,count);
-          }
-          else if(count >= 5){
-            ShowToast("Level Up Failed :( Retry Again !");
-            main();
-          }
-        }
-      }
-    }
-    else if(body.rows.length == 0 ){
-      ShowToast("Leveled Up Successfully");
-      main();
-    }
-    
 }
 
 async function assetunstake(assetId) {
@@ -355,8 +272,8 @@ async function FilterStaked(assets) {
     var path = "/v1/chain/get_table_rows";
     var data = JSON.stringify({
       json: true,
-      code: "rarecitydapp",
-      scope: "rarecitydapp",
+      code: "puppyzzstake",
+      scope: "puppyzzstake",
       table: "nfts",
       lower_bound: assets[i].asset_id,
       upper_bound: assets[i].asset_id,
@@ -378,7 +295,6 @@ async function FilterStaked(assets) {
       results.push(assets[i]);
     }
   }
-
   return results;
 }
 
@@ -388,8 +304,8 @@ async function GetUser(rates) {
 
   var data = JSON.stringify({
     json: true,
-    code: "rarecitydapp",
-    scope: "rarecitydapp",
+    code: "puppyzzstake",
+    scope: "puppyzzstake",
     table: "user",
     limit: 1,
     lower_bound: wallet_userAccount,
@@ -427,11 +343,7 @@ async function GetUser(rates) {
    startTimer(ts);
 
   }
-
-
   return user;
-
-
 }
 
 function startTimer(duration) {
@@ -447,7 +359,7 @@ function startTimer(duration) {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds; 
       display= minutes+":"+seconds;
-      document.getElementById("timetor").innerHTML=display;
+      //document.getElementById("timetor").innerHTML=display;
       if (--timer < 0) {
           timer =0;
       }
@@ -462,7 +374,7 @@ clearInterval(t);
 async function GetAssets(colc,rates) {
   let results = [];
   var path = "atomicassets/v1/assets?collection_name=" + colc + "&owner=" + wallet_userAccount + "&page=1&limit=1000&order=desc&sort=asset_id";
-  const response = await fetch("https://" + "wax.api.atomicassets.io/" + path, {
+  const response = await fetch("https://" + "test.wax.api.atomicassets.io/" + path, {
     headers: {
       "Content-Type": "text/plain"
     },
@@ -514,8 +426,8 @@ async function GetRates() {
 
   var data = JSON.stringify({
     json: true,
-    code: "rarecitydapp",
-    scope: "rarecitydapp",
+    code: "puppyzzstake",
+    scope: "puppyzzstake",
     table: "collections",
     limit: 1000,
   });
@@ -549,8 +461,8 @@ async function GetStakingTableRows() {
 
   var data = JSON.stringify({
     json: true,
-    code: "rarecitydapp",
-    scope: "rarecitydapp",
+    code: "puppyzzstake",
+    scope: "puppyzzstake",
     table: "leveltemp",
     limit: 1000,
   });
@@ -585,7 +497,7 @@ async function GetBalance() {
 
   var data = JSON.stringify({
     json: true,
-    code: "rarecitytokn",
+    code: "puppyzztoken",
     scope: wallet_userAccount,
     table: "accounts",
     limit: 1000,
@@ -600,17 +512,16 @@ async function GetBalance() {
   });
 
   const body = await response.json();
-
-    balance=parseFloat(0.0000);
+  balance=parseFloat(0.0000);
   if (body.rows.length != 0) {
     for (j = 0; j < body.rows.length; j++) {
+      console.log(body.rows[j].balance);
       if (body.rows[j].balance.includes(symbol))
         balance = parseFloat(body.rows[j].balance).toFixed(4);
+        return balance;
     }
   }
-
   return balance;
-
 }
 
 async function GetShop() {
@@ -618,8 +529,8 @@ async function GetShop() {
   var path = "/v1/chain/get_table_rows";
   var data = JSON.stringify({
     json: true,
-    code: "rarecitymrkt",
-    scope: "rarecitymrkt",
+    code: "puppyzzmarkt",
+    scope: "puppyzzmarkt",
     table: "listings",
     limit: 1000,
   });
@@ -659,7 +570,7 @@ async function GetShop() {
 
 async function GetTemplateData(colc, id){
   var path = "atomicassets/v1/templates/" + colc + "/" + id;
-  const response = await fetch("https://wax.api.atomicassets.io/" + path, {
+  const response = await fetch("https://test.wax.api.atomicassets.io/" + path, {
     headers: {
       "Content-Type": "text/plain"
     },
@@ -675,8 +586,16 @@ async function GetTemplateData(colc, id){
   return result;
 }
 
-function PopulateShop(pack_data){
+function PopulateShop(pack_data,balance){
   let src = "https://ipfs.wecan.dev/ipfs/";
+  var parentTable  = document.getElementById("tbody");
+  var tr = document.createElement('tr');
+  var td = document.createElement('td');
+  var bal = document.createElement('p');
+  bal.textContent = "Token Balance : " + balance;
+  td.appendChild(bal);
+  tr.appendChild(td);
+  parentTable.appendChild(tr);
 
   for(var index = 0; index < pack_data.length; ++index){
 
@@ -707,6 +626,7 @@ function PopulateShop(pack_data){
     rate.className = 'ratesText';
     rate.textContent = pack_data[index].price;
     var sym = document.createElement('p');
+    sym.style = "color:white";
     sym.textContent = symbol;
 
     var div5 = document.createElement('div');
@@ -715,6 +635,7 @@ function PopulateShop(pack_data){
     qty.className = 'ratesText';
     qty.textContent = "Available : " + pack_data[index].available;
     var max = document.createElement('p');
+    max.style = "color:white";
     max.textContent = " / " + pack_data[index].total;
 
     var buyqty = document.createElement('input');
@@ -726,7 +647,7 @@ function PopulateShop(pack_data){
 
     let btn = document.createElement('BUTTON');
     btn.id = pack_data[index].id;
-    btn.className = "stkbtn";
+    btn.className = "levelbtn";
     btn.textContent = "BUY";
     btn.onclick = async function buy(){
       buypack(btn.id,rate.textContent,buyqty.value);
@@ -746,8 +667,7 @@ function PopulateShop(pack_data){
 
 }
 
-
-function PopulateMenu(rates,staked, unstakeasset, user, balance) {
+function PopulateMenu(rates,staked, unstakeasset, balance) {
   let src = "https://ipfs.wecan.dev/ipfs/";
   var unstaked = switchtostaked ? staked : unstakeasset;
   var pools = "";
@@ -756,11 +676,10 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
   for (let i = 0; i < unstaked.length; i++) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
-  document.getElementById('balance').innerHTML = balance.toLocaleString('en-US') + " " + symbol;
+
   colls = document.getElementById('sidebar-content');
   for(var index = 0; index < rates.length; index++){
     pools += '<div><button class = "collectonsbtn" id='+rates[index].pool+' onclick="switchtodiffcoll('+rates[index].pool+')">';
-    pools += '<div><img class = "token" src ="./assets/Token.png"></div>';
     pools += '<p class = "pool">' + rates[index].pool + '</p></div>';
   }
   colls.innerHTML = pools;
@@ -777,9 +696,25 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
     unstaked.forEach(element => {
       stakepower+=element.rateperday;
     });
-  document.getElementById('stkpowerid').innerHTML=stakepower.toFixed(4)+" RARC/Hour"
   }
-  console.log(stakepower);
+
+  var parentTable  = document.getElementById("tbody");
+  var tr = document.createElement('tr');
+  var td = document.createElement('td');
+  var stakingPower = document.createElement('p');
+  stakingPower.textContent = "Staking Power : " + stakepower + " KASU / H";
+  td.appendChild(stakingPower);
+  tr.appendChild(td);
+  parentTable.appendChild(tr);
+
+  var tr1 = document.createElement('tr');
+  var td1 = document.createElement('td');
+  var bal = document.createElement('p');
+  bal.textContent = "Token Balance : " + balance.toLocaleString('en-US') + " " + symbol;
+  td1.appendChild(bal);
+  tr1.appendChild(td1);
+  parentTable.appendChild(tr1);
+
   
   for (var index = 0; index < unstaked.length; ++index) {
   
@@ -799,25 +734,16 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
 
     var level = document.createElement('p');
     level.className = "level";
-    level.textContent = "LEVEL : " + unstaked[index].level_;
+    level.textContent = "# " + unstaked[index].asset_id;
     var leveln = document.createElement('p');
-    leveln.className = "n";
-    leveln.id = unstaked[index].price;
-    leveln.textContent = unstaked[index].level_ != 10?unstaked[index].price.toLocaleString('en-US'):"Max Level";
     topbar.appendChild(level);
     switchtostaked?topbar.appendChild(leveln):"";
-    collection == "rarecitynfts"?items.appendChild(topbar):"";
+    collection == "puppyteststk"?items.appendChild(topbar):"";
 
     img2 = document.createElement('img');
     img2.src = src + unstaked[index].img;
     img2.className = 'nftimg';
     items.appendChild(img2);
-
-    var div2 = document.createElement('p');
-    div2.textContent = unstaked[index].asset_id;
-    div2.className = 'textstyle';
-    div2.style = 'font-size:15px';
-    container.appendChild(div2);
 
     var div3 = document.createElement('div');
     div3.id = 'textstyle';
@@ -831,6 +757,7 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
     rate.className = 'ratesText';
     rate.textContent = unstaked[index].rateperday ;
     var sym = document.createElement('p');
+    sym.className = "textstyle";
     sym.textContent = symbol+"/H";
     div4.appendChild(rate);div4.appendChild(sym);
     container.appendChild(div4);
@@ -839,26 +766,25 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
     var bar = document.createElement('div');
     bar.className = "bar";
 
-    let stkbtn = document.createElement('BUTTON');
-    stkbtn.id = unstaked[index].asset_id;
-    stkbtn.textContent = !switchtostaked?'Stake':'Unstake';
+    let stkbtn = document.createElement('input');
     stkbtn.className = "stkbtn";
+    stkbtn.type = "image";
+    stkbtn.src = !switchtostaked?"./assets/buttons/stake.PNG":"./assets/buttons/unstake.PNG";
+    stkbtn.onmouseover = async()=>{
+      stkbtn.src = !switchtostaked?"./assets/buttons/stake_hover.PNG":"./assets/buttons/unstake_hover.PNG";
+    };
+    stkbtn.onmouseleave = async()=>{
+      stkbtn.src = !switchtostaked?"./assets/buttons/stake.PNG":"./assets/buttons/unstake.PNG";
+    };
+    stkbtn.id = unstaked[index].asset_id;
     stkbtn.onclick = async function s(){
     !switchtostaked?stakeasset(stkbtn.id):assetunstake(stkbtn.id);};
-    let levelbtn = document.createElement('BUTTON');
-    levelbtn.textContent = 'Level UP';
-    levelbtn.id = unstaked[index].price;
-    levelbtn.className = "levelbtn";
-    levelbtn.onclick = async function level(){
-      levelup(stkbtn.id,levelbtn.id);
-    };
+
     bar.appendChild(stkbtn);
-    if(switchtostaked && collection == "rarecitynfts" && unstaked[index].level_ != "10")bar.appendChild(levelbtn);
     items.appendChild(bar);
     div.appendChild(items);
     mainDiv.appendChild(div);
     }
-
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     mainDiv.style.display = "block";
@@ -868,20 +794,25 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
 function switchstaked(index) {
   switchtostaked = index;
   clearUi();
-  PopulateMenu(rates, staked, unstaked, user, balance);
+  !homescreen?PopulateMenu(rates, staked, unstaked, user, balance):"";
 }
 
-function switchshop(index) {
-  if(canclick){
+function returnbtn(){
+  clearUi();
+  document.getElementById("sidebar").style.display = "none";
+  document.getElementById("home").style.display = "block";
+}
+
+async function switchshop(index) {
+  //if(canclick){
+    homescreen?homescreen=false:"";
+    document.getElementById("home").style.display = "none";
+    document.getElementById("sidebar").style.display = "block";
     switchtoshop = index;
-    var ele = !switchtoshop?'shop':'stakingbar';
-    var ele2 = switchtoshop?'shop':'stakingbar'
-    document.getElementById(ele2).style.display = "none";
-    document.getElementById(ele).style.display = "block";
     clearUi();
-    !switchtoshop?PopulateMenu(rates, staked, unstaked, user, balance):PopulateShop(pack_data);
+    await main();
     overflow.overflowY = "visible";
-  }
+  //}
 }
 
 function switchtodiffcoll(index){
@@ -894,6 +825,7 @@ function switchtodiffcoll(index){
 
 function clearUi(){
   document.getElementById('staking').style.display = "none";
+  var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
   overflow.overflowY = "hidden";
   if(mainDiv.children.length >=1){
@@ -901,6 +833,13 @@ function clearUi(){
     while (child) {
       mainDiv.removeChild(child);
       child = mainDiv.lastElementChild;
+    }
+  }
+  if(parentTable.children.length >=1){
+    var child2 = parentTable.lastElementChild;
+    while (child2) {
+      parentTable.removeChild(child2);
+      child2 = parentTable.lastElementChild;
     }
   }
 }
@@ -926,7 +865,7 @@ function TimeInputChanged() {
     document.getElementById("timeunit").innerHTML = value > 1 ? "days" : "day";
   }
   var oldCustom = document.getElementById("custominput").value;
-  PopulateMenu();
+  !homescreen?PopulateMenu():"";
   document.getElementById("custominput").value = oldCustom;
   CustomInputChanged();
 }
@@ -1057,8 +996,9 @@ async function logout() {
   document.getElementById("loggedin").style.display = "none";
   document.getElementById("loggedout").style.display = "block";
   document.getElementById('staking').style.display = "none";
+  document.getElementById('return').style.display = "none";
+  document.getElementById('stakingbar').style.display = "none";
   document.getElementById('shop').style.display = "none";
-  document.getElementById('blc').style.display = "none";
   document.getElementById('claim').style.display = "none";
   document.getElementById('sideContent').style.display = "none"; 
   loggedIn = false;
@@ -1072,8 +1012,9 @@ async function login() {
       document.getElementById("loggedout").style.display = "none";
       document.getElementById("loggedin").style.display = "block";
       document.getElementById('sideContent').style.display = "block";
-      document.getElementById('shop').style.display = "block"
-      document.getElementById('blc').style.display = "block";
+      document.getElementById('return').style.display = "block";
+      document.getElementById('stakingbar').style.display = "block";
+      document.getElementById('shop').style.display = "block";
       document.getElementById('claim').style.display = "block";
       WalletListVisible(false);
       loggedIn = true;
