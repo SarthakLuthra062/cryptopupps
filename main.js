@@ -27,7 +27,6 @@ var canclick = false;
 var mainDiv = document.getElementById("maindiv");
 var loader = document.getElementById('loader').style;
 var lvlloader = document.getElementById('lvlloader').style;
-var overflow = document.getElementById('body').style;
 main();
 
 async function main() {
@@ -36,28 +35,11 @@ async function main() {
     autoLogin();
   else if(loggedIn)
   {
-    console.log("1");
-    console.log(homescreen);
     if(!homescreen)
     {
       clearUi();
       loader.display = "block";
       lvlloader.display = "none";
-      ratespromise = GetRates();
-      rates = await ratespromise;
-      console.log("rate " + new Date().toUTCString());
-
-      assetPromise = GetAssets(collection, rates);
-      assets = await assetPromise;
-      console.log("asset " + new Date().toUTCString());
-
-      stakepromise = FilterStaked(assets);
-      staked = await stakepromise;
-      console.log("stk " + new Date().toUTCString());
-
-      userpromise = GetUser(rates, staked);
-      user = await userpromise;
-      console.log("user " + new Date().toUTCString());
 
       balancepromise = GetBalance();
       balance = await balancepromise;
@@ -65,12 +47,31 @@ async function main() {
 
       pack = GetShop();
       pack_data = await pack;
+      switchtoshop?PopulateShop(pack_data,balance):"";
       console.log("pack " + new Date().toUTCString());
 
-      unstaked = FilterUnstaked(assets, staked);
-      !homescreen?!switchtoshop?PopulateMenu(rates,staked, unstaked, balance):PopulateShop(pack_data,balance):"";
-      canclick = true;
-      console.log("ui " + new Date().toUTCString());
+      if(!switchtoshop){
+        ratespromise = GetRates();
+        rates = await ratespromise;
+        console.log("rate " + new Date().toUTCString());
+
+        assetPromise = GetAssets(collection, rates);
+        assets = await assetPromise;
+        console.log("asset " + new Date().toUTCString());
+
+        stakepromise = FilterStaked(assets);
+        staked = await stakepromise;
+        console.log("stk " + new Date().toUTCString());
+
+        userpromise = GetUser(rates, staked);
+        user = await userpromise;
+        console.log("user " + new Date().toUTCString());
+
+        unstaked = FilterUnstaked(assets, staked);
+        !homescreen?PopulateMenu(rates,staked, unstaked, balance):"";
+        canclick = true;
+        console.log("ui " + new Date().toUTCString());
+      }
     }
   }
 }
@@ -359,7 +360,6 @@ function startTimer(duration) {
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds; 
       display= minutes+":"+seconds;
-      //document.getElementById("timetor").innerHTML=display;
       if (--timer < 0) {
           timer =0;
       }
@@ -382,26 +382,19 @@ async function GetAssets(colc,rates) {
   });
 
   const body = await response.json();
-  tableRows = GetStakingTableRows();
-  level = await tableRows;
+  level = await GetStakingTableRows();
 
   if(level != 0){
     for(i = 0; i < body.data.length; i++){
       var data = body.data[i];
-      if(typeof data.mutable_data.Level !== "undefined")
-      lvl = data.mutable_data.Level;
-      else
-      lvl = 1;
       for(n = 0; n < level.length; n++){
         if(data.template.template_id == level[n].id){
           var rate = 0;
-          rate_ = 0;
           for (let j = 0; j < rates.length; j++) {
             if (data.collection.collection_name == rates[j].pool) {
               for (let k = 0; k < rates[j].levels.length; k++) {
                 if (rates[j].levels[k].key == level[n].level) {
                   rate = parseFloat(rates[j].levels[k].value);
-                  rate_ = lvl > 1 ? parseFloat(lvl)* parseFloat(rate) : rate;
                 }
               }
             }
@@ -410,9 +403,7 @@ async function GetAssets(colc,rates) {
             asset_id: data.asset_id,
             img: data.data.img,
             name: data.name,
-            level_: lvl,
-            price: rate_.toFixed(4) * 1000,
-            rateperday: rate_.toFixed(4)*1,
+            rateperday: rate.toFixed(4)*1,
           });
         }
       }
@@ -442,6 +433,7 @@ async function GetRates() {
 
   var rates = [];
   const body = await response.json();
+  console.log(body);
 
   if (body.rows.length != 0) {
     for (let i = 0; i < body.rows.length; i++) {
@@ -563,9 +555,7 @@ async function GetShop() {
       });
     }
   }
-
   return packs;
-
 }
 
 async function GetTemplateData(colc, id){
@@ -588,14 +578,6 @@ async function GetTemplateData(colc, id){
 
 function PopulateShop(pack_data,balance){
   let src = "https://ipfs.wecan.dev/ipfs/";
-  var parentTable  = document.getElementById("tbody");
-  var tr = document.createElement('tr');
-  var td = document.createElement('td');
-  var bal = document.createElement('p');
-  bal.textContent = "Token Balance : " + balance;
-  td.appendChild(bal);
-  tr.appendChild(td);
-  parentTable.appendChild(tr);
 
   for(var index = 0; index < pack_data.length; ++index){
 
@@ -608,42 +590,16 @@ function PopulateShop(pack_data,balance){
 
     img2 = document.createElement('img');
     img2.src = src + pack_data[index].img;
-    img2.className = 'packimg';
+    img2.className = 'nftimg';
     items.appendChild(img2);
 
-    var div3 = document.createElement('div');
-    div3.id = 'textstyle';
-    div3.textContent = pack_data[index].name;
-    div3.className = 'textstyle';
-    items.appendChild(div3);
-
-    var quantity = document.createElement('p');
-    quantity.textContent = pack_data[index]
-
-    var div4 = document.createElement('div');
-    div4.className = 'ratediv';
-    var rate = document.createElement('p');
+    var ratesText = document.createElement('p');
+    ratesText.className = "rates";
+    var rate = document.createElement('div');
     rate.className = 'ratesText';
-    rate.textContent = pack_data[index].price;
-    var sym = document.createElement('p');
-    sym.style = "color:white";
-    sym.textContent = symbol;
-
-    var div5 = document.createElement('div');
-    div5.className = 'ratediv';
-    var qty = document.createElement('p');
-    qty.className = 'ratesText';
-    qty.textContent = "Available : " + pack_data[index].available;
-    var max = document.createElement('p');
-    max.style = "color:white";
-    max.textContent = " / " + pack_data[index].total;
-
-    var buyqty = document.createElement('input');
-    buyqty.className = "inc";
-    buyqty.type = "number";
-    buyqty.min = "1";
-    buyqty.max = "5";
-    buyqty.value = "1";
+    ratesText.textContent = pack_data[index].price;
+    rate.appendChild(ratesText);
+    items.appendChild(rate);
 
     let btn = document.createElement('BUTTON');
     btn.id = pack_data[index].id;
@@ -653,18 +609,12 @@ function PopulateShop(pack_data,balance){
       buypack(btn.id,rate.textContent,buyqty.value);
     }
 
-    div4.appendChild(rate);div4.appendChild(sym);
-    div5.appendChild(qty);div5.appendChild(max);
-    items.appendChild(div4);
-    items.appendChild(buyqty);
-    items.appendChild(div5);
-    items.appendChild(btn);
     div.appendChild(items);
+    div.appendChild(btn);
     mainDiv.appendChild(div);
   }
-  loader.display = "none";
-  mainDiv.style.display = "block";
-
+    loader.display = "none";
+    mainDiv.style.display = "block";
 }
 
 function PopulateMenu(rates,staked, unstakeasset, balance) {
@@ -676,7 +626,8 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
   for (let i = 0; i < unstaked.length; i++) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
-  overflow.overflowY = "visible";
+
+  document.getElementById("letsstake").style.visibility = "visible";
 
   if(unstaked.length < 1){
     loader.display = "none";
@@ -807,18 +758,15 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 
 function returnbtn(){
   clearUi();
-  document.getElementById("home").style.display = "block";
+  document.getElementById("home").style.visibility = "visible";
 }
 
 async function switchshop(index) {
-  //if(canclick){
     homescreen?homescreen=false:"";
-    document.getElementById("home").style.display = "none";
+    document.getElementById("home").style.visibility = "hidden";
     switchtoshop = index;
     clearUi();
     await main();
-    overflow.overflowY = "visible";
-  //}
 }
 
 function switchtodiffcoll(index){
@@ -831,10 +779,9 @@ function switchtodiffcoll(index){
 
 function clearUi(){
   document.getElementById('staking').style.display = "none";
-  //document.getElementById('letstake').style.display = "none";
+  document.getElementById("letsstake").style.visibility = "hidden";
   var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
-  overflow.overflowY = "hidden";
   if(mainDiv.children.length >=1){
     var child = mainDiv.lastElementChild;
     while (child) {
@@ -1003,10 +950,7 @@ async function logout() {
   document.getElementById("loggedin").style.display = "none";
   document.getElementById("loggedout").style.display = "block";
   document.getElementById('staking').style.display = "none";
-  document.getElementById('return').style.display = "none";
-  document.getElementById('stakingbar').style.display = "none";
-  document.getElementById('shop').style.display = "none";
-  document.getElementById('sideContent').style.display = "none"; 
+  document.getElementById('return').style.display = "none"; 
   loggedIn = false;
   HideMessage();
 }
@@ -1018,8 +962,6 @@ async function login() {
       document.getElementById("loggedout").style.display = "none";
       document.getElementById("loggedin").style.display = "block";
       document.getElementById('return').style.display = "block";
-      document.getElementById('stakingbar').style.display = "block";
-      document.getElementById('shop').style.display = "block";
       WalletListVisible(false);
       loggedIn = true;
       main();
