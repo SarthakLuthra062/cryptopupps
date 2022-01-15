@@ -18,7 +18,7 @@
             <nav>
                 <div class="logo">
                     <a href="#">
-                        <img class="logoimg" src="./assets/Logo (2).png" alt="">
+                        <img class="logoimg" src="./assets/buttons/logo.PNG" alt="">
                     </a>
                 </div>
                 <li>
@@ -26,17 +26,14 @@
                 </li>
                 <ul class="nav-items">
                     <li>
-                        <input class="btn barbtn" id = "stakingbar" style="display: none;" onclick="switchshop(false)" value="Staking" type="button">
+                        <input class="btn barbtn" id = "stakingbar" src="./assets/buttons/stake_navbar.PNG" style="display: none;" onclick="switchshop(false)" type="image">
                     </li>
                     <li>
-                        <input class="btn barbtn" id = "shop" style="display: none;" onclick="switchshop(true)" value="Shop" type="button">
+                        <input class="btn barbtn" id = "shop" src="./assets/buttons/shop_navbar.PNG" style="display: none;" onclick="switchshop(true)" type="image">
                     </li>
                     <li>
-                        <input class="btn barbtn" id = "claim" style="display: none;" onclick="claimbalance()" value="Claim" type="button">
-                    </li>
-                    <li>
-                        <input class="btn barbtn" id = "loggedout" onclick="WalletListVisible(!0)" value="Login" type="button">
-                        <input class="btn barbtn" id = "loggedin" style="display: none;" onclick="logout()" value="Logout" type="button">
+                        <input class="btn barbtn" src="./assets/buttons/login.png" id = "loggedout" onclick="WalletListVisible(!0)" type="image">
+                        <input class="btn barbtn" src="./assets/buttons/login.png" id = "loggedin" style="display: none;" onclick="logout()" type="image">
                     </li>
                 </ul>
             </nav>
@@ -46,14 +43,9 @@
         <div class="home" id="home">
             <span style="display: inline-block;margin: 250px;font-weight: bold;">CRYPTOPUPPYZZ<br><span style="font-size:25px;">| STAKING | MARKETPLACE |</span></span>
         </div>
-        <div class="sidebar" id="sidebar" style="display: none;">
-            <div id="sideContent">
-                <p class="sidebar-title">Available Collections</p>
-                <div class="sidebar-title"><div id='sidebar-content'></div>
-            </div>
-        </div>
-        </div></div>
+       </div>
             <div class="main-content">
+                <input id="letsstake" src="./assets/buttons/lets_stake (1).png" style="margin-top: 20px;" type="image">
                 <div id="loader" style="display: none;">
                     <p class="loadingText">Loading ...</p>
                     <div class="lds-circle"><div></div></div>
@@ -63,34 +55,28 @@
                     <p class="loadingText">Loading ...</p>
                     <div class="lds-circle"><div></div></div>
                 </div>
-                <div class="secondheader">
-                    <ul>
-                        <li>
-                            <table id="dashboard" style="display: flex;justify-content:center;align-items:center;font-weight:bold;color:black;height: 50px;font-size: 20px;">
-                                <tbody id="tbody">
-                                </tbody>
-                            </table>
-                        </li>
-                        <li>
-                            <div style="height: 20px;"></div>
-                        </li>
-                        <li>
-                            <div id="staking" style="display: none;">
-                            <input class="stakeAllbtn barbtn" id = "stkall" onclick="stakeall()" value="Stake All" type="button">
-                            <input class="stakeAllbtn barbtn"  onclick="switchstaked(false)" value="Wallet" type="button">
-                            <input class="stakeAllbtn barbtn"  onclick="switchstaked(true)" value="Inventory" type="button">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <ul style="list-style: none;">
+                    <li>
+                        <table id="dashboard" style="display: flex;justify-content:center;align-items:center;color:white;height: 50px;font-size: 20px;margin-top: 10px;;">
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <div id="staking" style="display: none;">
+                        <input class="stakeall_btn" id = "stkall" onclick="stakeall()" type="button">
+                        <input class="stakeAllbtn barbtn" id = "claim" src="./assets/buttons/claim.PNG" onclick="claimbalance()" type="image">
+                        </div>
+                    </li>
+                </ul>
                 <div class="content_wrapper">
-                    <div class="maindiv" id="maindiv"></div>
                     <div id="walletlist" style="visibility: hidden">
                         <button class="close" onclick="WalletListVisible(!1)">x</button>
                         <div style="margin-top: 20px;color: #314780; font-size: 26px;font-family: Arial, Helvetica, sans-serif;font-weight: 600;">To continue please<p>select an option</p></div>
                         <input class="anchor" id="anchor" src="./assets/anchor.png" onclick='selectWallet("anchor")' type="image"><br>
                         <input class="wcw" id="wcw" src="./assets/wcw.png" onclick='selectWallet("cloud")' type="image">
                     </div>
+                    <div class="maindiv" id="maindiv"></div>
                     <div id="message" style="visibility: hidden">
                         <div><button class="close" onclick="HideMessage()">x</button></div>
                         <div id="messagecontent"></div>

@@ -21,7 +21,6 @@ var t = 0;
 var anchorAuth = "owner";
 var homescreen = true;
 var loggedIn = false;
-var switchtostaked = true;
 var collection = 'puppyteststk';
 var switchtoshop = false;
 var canclick = false;
@@ -104,7 +103,6 @@ async function stakeall() {
           _user: wallet_userAccount,
         },
       }, ]);
-      switchtostaked = true;
       main();
       ShowToast("All Assets Staked Successfully !");
     } catch (e) {
@@ -136,6 +134,7 @@ async function stakeasset(assetId) {
           asset_ids: [assetId]
         },
       }, ]);
+      console.log(result);
       main();
       ShowToast("All Assets Staked Successfully !");
     } catch (e) {
@@ -206,6 +205,7 @@ async function assetunstake(assetId) {
         }],
         data: data1,
       }, ]);
+      console.log(result.transaction_id);
       main();
       ShowToast("Asset Unstaked Successfully");
     } catch (e) {
@@ -669,20 +669,13 @@ function PopulateShop(pack_data,balance){
 
 function PopulateMenu(rates,staked, unstakeasset, balance) {
   let src = "https://ipfs.wecan.dev/ipfs/";
-  var unstaked = switchtostaked ? staked : unstakeasset;
+  var all_assets = [{staked,unstakeasset}];
   var pools = "";
   var ids = [];
   var stakepower=0.00;
   for (let i = 0; i < unstaked.length; i++) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
-
-  colls = document.getElementById('sidebar-content');
-  for(var index = 0; index < rates.length; index++){
-    pools += '<div><button class = "collectonsbtn" id='+rates[index].pool+' onclick="switchtodiffcoll('+rates[index].pool+')">';
-    pools += '<p class = "pool">' + rates[index].pool + '</p></div>';
-  }
-  colls.innerHTML = pools;
   overflow.overflowY = "visible";
 
   if(unstaked.length < 1){
@@ -698,7 +691,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     });
   }
 
-  var parentTable  = document.getElementById("tbody");
+  /*var parentTable  = document.getElementById("tbody");
   var tr = document.createElement('tr');
   var td = document.createElement('td');
   var stakingPower = document.createElement('p');
@@ -713,11 +706,10 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
   bal.textContent = "Token Balance : " + balance.toLocaleString('en-US') + " " + symbol;
   td1.appendChild(bal);
   tr1.appendChild(td1);
-  parentTable.appendChild(tr1);
+  parentTable.appendChild(tr1);*/
 
-  
-  for (var index = 0; index < unstaked.length; ++index) {
-  
+  for (var index = 0; index < all_assets[0].unstakeasset.length; ++index) {
+
     var items = document.createElement('div');
     items.className = "itemwrapper";
     items.id = index;
@@ -726,42 +718,18 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     div.id = 'tablecontainer';
     div.className = 'tablecontainer';
 
-    var container = document.createElement('div');
-    container.className = "textcontainer";
-
-    var topbar = document.createElement('div');
-    topbar.className = "topbar";
-
-    var level = document.createElement('p');
-    level.className = "level";
-    level.textContent = "# " + unstaked[index].asset_id;
-    var leveln = document.createElement('p');
-    topbar.appendChild(level);
-    switchtostaked?topbar.appendChild(leveln):"";
-    collection == "puppyteststk"?items.appendChild(topbar):"";
-
     img2 = document.createElement('img');
-    img2.src = src + unstaked[index].img;
+    img2.src = src + all_assets[0].unstakeasset[index].img;
     img2.className = 'nftimg';
     items.appendChild(img2);
 
-    var div3 = document.createElement('div');
-    div3.id = 'textstyle';
-    div3.textContent = unstaked[index].name;
-    div3.className = 'textstyle';
-    container.appendChild(div3);
-
-    var div4 = document.createElement('div');
-    div4.className = 'ratediv';
-    var rate = document.createElement('p');
+    var ratesText = document.createElement('p');
+    ratesText.className = "rates";
+    var rate = document.createElement('div');
     rate.className = 'ratesText';
-    rate.textContent = unstaked[index].rateperday ;
-    var sym = document.createElement('p');
-    sym.className = "textstyle";
-    sym.textContent = symbol+"/H";
-    div4.appendChild(rate);div4.appendChild(sym);
-    container.appendChild(div4);
-    items.appendChild(container);
+    ratesText.textContent = all_assets[0].unstakeasset[index].rateperday.toFixed(4);
+    rate.appendChild(ratesText);
+    items.appendChild(rate);
 
     var bar = document.createElement('div');
     bar.className = "bar";
@@ -769,37 +737,76 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     let stkbtn = document.createElement('input');
     stkbtn.className = "stkbtn";
     stkbtn.type = "image";
-    stkbtn.src = !switchtostaked?"./assets/buttons/stake.PNG":"./assets/buttons/unstake.PNG";
+    stkbtn.src = "./assets/buttons/stake.PNG";
     stkbtn.onmouseover = async()=>{
-      stkbtn.src = !switchtostaked?"./assets/buttons/stake_hover.PNG":"./assets/buttons/unstake_hover.PNG";
+      stkbtn.src = "./assets/buttons/stake_hover.PNG";
     };
     stkbtn.onmouseleave = async()=>{
-      stkbtn.src = !switchtostaked?"./assets/buttons/stake.PNG":"./assets/buttons/unstake.PNG";
+      stkbtn.src = "./assets/buttons/stake.PNG";
     };
-    stkbtn.id = unstaked[index].asset_id;
+    stkbtn.id = all_assets[0].unstakeasset[index].asset_id;
     stkbtn.onclick = async function s(){
-    !switchtostaked?stakeasset(stkbtn.id):assetunstake(stkbtn.id);};
+    stakeasset(stkbtn.id)};
 
     bar.appendChild(stkbtn);
-    items.appendChild(bar);
     div.appendChild(items);
+    div.appendChild(bar);
     mainDiv.appendChild(div);
+  }
+
+  for (var index = 0; index < all_assets[0].staked.length; ++index) {
+
+      var items = document.createElement('div');
+      items.className = "itemwrapper";
+      items.id = index;
+
+      var div = document.createElement('div');
+      div.id = 'tablecontainer';
+      div.className = 'tablecontainer';
+
+      img2 = document.createElement('img');
+      img2.src = src + all_assets[0].staked[index].img;
+      img2.className = 'nftimg';
+      items.appendChild(img2);
+
+      var ratesText = document.createElement('p');
+      ratesText.className = "rates";
+      var rate = document.createElement('div');
+      rate.className = 'ratesText';
+      ratesText.textContent = all_assets[0].staked[index].rateperday.toFixed(4);
+      rate.appendChild(ratesText);
+      items.appendChild(rate);
+
+      var bar = document.createElement('div');
+      bar.className = "bar";
+
+      let stkbtn = document.createElement('input');
+      stkbtn.className = "stkbtn";
+      stkbtn.type = "image";
+      stkbtn.src = "./assets/buttons/unstake.PNG";
+      stkbtn.onmouseover = async()=>{
+        stkbtn.src = "./assets/buttons/unstake_hover.PNG";
+      };
+      stkbtn.onmouseleave = async()=>{
+        stkbtn.src = "./assets/buttons/unstake.PNG";
+      };
+      stkbtn.id = all_assets[0].staked[index].asset_id;
+      stkbtn.onclick = async function s(){
+      assetunstake(stkbtn.id);};
+
+      bar.appendChild(stkbtn);
+      div.appendChild(items);
+      div.appendChild(bar);
+      mainDiv.appendChild(div);
     }
+
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     mainDiv.style.display = "block";
 }
 
-
-function switchstaked(index) {
-  switchtostaked = index;
-  clearUi();
-  !homescreen?PopulateMenu(rates, staked, unstaked, user, balance):"";
-}
-
 function returnbtn(){
   clearUi();
-  document.getElementById("sidebar").style.display = "none";
   document.getElementById("home").style.display = "block";
 }
 
@@ -807,7 +814,6 @@ async function switchshop(index) {
   //if(canclick){
     homescreen?homescreen=false:"";
     document.getElementById("home").style.display = "none";
-    document.getElementById("sidebar").style.display = "block";
     switchtoshop = index;
     clearUi();
     await main();
@@ -825,6 +831,7 @@ function switchtodiffcoll(index){
 
 function clearUi(){
   document.getElementById('staking').style.display = "none";
+  //document.getElementById('letstake').style.display = "none";
   var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
   overflow.overflowY = "hidden";
@@ -999,7 +1006,6 @@ async function logout() {
   document.getElementById('return').style.display = "none";
   document.getElementById('stakingbar').style.display = "none";
   document.getElementById('shop').style.display = "none";
-  document.getElementById('claim').style.display = "none";
   document.getElementById('sideContent').style.display = "none"; 
   loggedIn = false;
   HideMessage();
@@ -1011,11 +1017,9 @@ async function login() {
       ShowToast("Logged in as: " + userAccount);
       document.getElementById("loggedout").style.display = "none";
       document.getElementById("loggedin").style.display = "block";
-      document.getElementById('sideContent').style.display = "block";
       document.getElementById('return').style.display = "block";
       document.getElementById('stakingbar').style.display = "block";
       document.getElementById('shop').style.display = "block";
-      document.getElementById('claim').style.display = "block";
       WalletListVisible(false);
       loggedIn = true;
       main();
