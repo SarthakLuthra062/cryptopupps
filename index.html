@@ -21,10 +21,10 @@
                         <img class="logoimg" src="./assets/buttons/logo.PNG" alt="">
                     </a>
                 </div>
-                <li>
-                    <input class="returnbtn" id="return" src="./assets/buttons/back.png" style="display: none;" onclick="returnbtn()" type="image">
-                </li>
                 <ul class="nav-items">
+                    <li>
+                        <input class="returnbtn" id="return" src="./assets/buttons/back.png" onclick="returnbtn()" type="image">
+                    </li>
                     <li>
                         <input class="btn barbtn" src="./assets/buttons/login.png" id = "loggedout" onclick="WalletListVisible(!0)" type="image">
                         <input class="btn barbtn" src="./assets/buttons/logout.png" id = "loggedin" style="display: none;" onclick="logout()" type="image">
@@ -35,7 +35,7 @@
     </div>
     <div class="header-container">
             <div class="main-content">
-                <input id="letsstake" src="./assets/buttons/lets_stake (1).png" style="margin-top: 20px;visibility: hidden;" type="image">
+                <input id="letsstake" src="./assets/buttons/lets_stake (1).png" style="margin-top: 80px;visibility: hidden;" type="image">
                 <div id="loader" style="display: none;">
                     <p class="loadingText">Loading ...</p>
                     <div class="lds-circle"><div></div></div>
@@ -47,7 +47,7 @@
                 </div>
                 <ul style="list-style: none;">
                     <li>
-                        <table id="dashboard" style="display: flex;justify-content:center;align-items:center;color:white;height: 50px;font-size: 20px;margin-top: 10px;;">
+                        <table id="dashboard" style="display: flex;justify-content:center;align-items:center;color:white;height: 15px;font-size: 20px;margin-top: 10px;;">
                             <tbody id="tbody">
                             </tbody>
                         </table>
@@ -60,16 +60,16 @@
                     </li>
                 </ul>
                 <div class="content_wrapper">
-                    <div id="walletlist" style="visibility: hidden">
+                    <div id="walletlist" style="visibility: hidden;z-index: 3;margin-top: -100px;">
                         <button class="close" onclick="WalletListVisible(!1)">x</button>
                         <div style="margin-top: 20px;color: #314780; font-size: 26px;font-family: Arial, Helvetica, sans-serif;font-weight: 600;">To continue please<p>select an option</p></div>
                         <input class="anchor" id="anchor" src="./assets/anchor.png" onclick='selectWallet("anchor")' type="image"><br>
                         <input class="wcw" id="wcw" src="./assets/wcw.png" onclick='selectWallet("cloud")' type="image">
                     </div>
                     <div class="maindiv" id="maindiv"></div>
-                    <div class="homediv" id="home">
-                    <div class="btnpanel">
-                        <div class="btnpanel1" style="margin-top:200px;height: 350px;width: 60%;margin-left: 230px;align-items: center;">
+                    <div class="homediv">
+                    <div class="btnpanel" id="home">
+                        <div class="btnpanel1">
                             <input class="btn homebtn" id = "home" src="./assets/buttons/home.PNG" onclick="" type="image">
                             <input class="btn homebtn" id = "shop" src="./assets/buttons/shop_navbar.PNG" onclick="switchshop(true)" type="image">
                             <input class="btn homebtn" id = "stakingbar" src="./assets/buttons/stake_navbar.PNG" onclick="switchshop(false)" type="image">
@@ -78,8 +78,10 @@
                             <input class="btn aboutusbtn" id = "aboutus" src="./assets/buttons/aboutusbtn.PNG" onclick="" type="image">
                         </div>
                     </div>
-                    <img class="roadmapTitle" src="./assets/buttons/roadmap.PNG" style="order: 2;">
-                    <img class="roadmap" src="./assets/buttons/roadmap_template.png" style="order: 3;">  
+                    <div style="width: 80%; order: 2;justify-content: center;align-items: center;display: flex;flex-direction: column;">
+                        <img id="switchpanel" class="roadmapTitle" src="./assets/buttons/roadmap.PNG">
+                        <img id="switchpanel2" class="roadmap" src="./assets/buttons/roadmap_img.PNG">
+                    </div>  
                     </div>      
                     <div id="message" style="visibility: hidden">
                         <div><button class="close" onclick="HideMessage()">x</button></div>

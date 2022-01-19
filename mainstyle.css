@@ -8,24 +8,19 @@
         src: url("./assets/Cryptopups-Regular.ttf");
     }
 
-    home{
-        height:1200px;
-        width: 500px;
-    }
-
     body{
         font-family: Dog;
         overflow: scroll;
         overflow-y:visible;
         overflow-x: hidden;
-        background-image: url("./assets/buttons/bg1.png");
+        background-image: url("./assets/buttons/bg3.png");
+        background-repeat:repeat-y;
     }
 
     .nav-container{
         position: absolute;
         height: 114px;
-        background: url("./assets/buttons/bg1.png");
-        background-color: #653500;
+        background-color: transparent;
         z-index: 1;
         width: 100%;
     }
@@ -47,11 +42,11 @@
     }
 
     nav .logo{
-        position: absolute;
-        width: 144px;
-        height: 45px;
-        left: 20px;
-        top: 15px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 150px;
+       padding: 100px;
     }
 
     .nav-items{
@@ -67,19 +62,6 @@
 
     .nav-items li:nth-last-of-type(1){
         margin: 0;
-    }
-
-    .home{
-        position: absolute;
-        display: block;
-        align-items: center;
-        text-align:center;
-        font-size: 100px;
-        color: #E4A903;
-        width: 100%;
-        height: 100%;
-        top: 110px;
-        justify-content: center;
     }
 
     .main-content{
@@ -167,9 +149,7 @@
     .maindiv{
         height:auto;
         width: 75%;
-        top: 220px;
         position: absolute;
-        border: transparent;
         font: 16px/26px;
         display: none;
         overflow: scroll;
@@ -179,15 +159,15 @@
     }
 
     .roadmapTitle{
-        width: 300px;
+        width: auto;
         height: 80px;
-        float: left;
+        order: 1;
     }
 
     .homediv{
-        height:auto;
+        height:500px;
         width: 90%;
-        top: 0px;
+        top: 80px;
         position: absolute;
         align-items: flex-start;
         justify-content: center;
@@ -196,13 +176,14 @@
     }
 
     .roadmap{
-        width: 100%;
-        height: 500px;
-        margin-left: -155px;
+        width: auto;
+        height: 1700px;
+        order: 2;
     }
 
     #toast {
         position: fixed;
+        text-transform: lowercase;
         top: 120px;
         right: 0px;
         background-size: 25% 45%;
@@ -231,6 +212,18 @@
         background-image: url("./assets/buttons/template1.png");
         width: 310px;
         height: 340px;
+        align-items: center;
+        align-content: center;
+        font: 16px/26px Georgia, Garamond, Serif;
+        display: block;
+        padding: 60px 2px;
+    }
+
+    .shopwrapper {
+        background-image: url("./assets/buttons/shopTemplate.png");
+        background-repeat:no-repeat;
+        width: 310px;
+        height: 380px;
         align-items: center;
         align-content: center;
         font: 16px/26px Georgia, Garamond, Serif;
@@ -282,16 +275,15 @@
     }
 
     .textstyle {
-        color: #E4A903;
-        font-family: Dog;
+        color: #eea88f;
         font-weight: bold;
-        text-transform: uppercase;
-        font-size: 20px;
+        font-family: Dog;
+        font-size: 18px;
         font-weight: bold;
     }
 
     .ratesText {
-        margin-top: 20px;
+        margin-top: 10px;
         font-family: Dog;
         background-image: url("./assets/buttons/rates\ \(1\).png");
         height: 52px;
@@ -356,12 +348,15 @@
 
 
     .returnbtn{
-        margin-left: 350px;
-        margin-top: 20px;
+        width: 50px;
+        height: 50px;
+        display: none;
     }
 
     .returnbtn:hover{
-        background-image: url("assets/buttons/back_hover.png");
+        width: auto;
+        height: auto;
+        background: url("assets/buttons/back_hover.png");
     }
 
     .stkbtn{
@@ -374,6 +369,19 @@
 
     .stkbtn:hover{
         transition-duration: 0.5s;
+    }
+
+    .buybtn{
+        margin-top: 10px;
+        width: 110px;
+        height: 50px;
+        color: white;
+        border-radius: 5px;
+    }
+
+    .buybtn:hover{
+        transition-duration: 0.5s;
+        transform: scale(0.9,0.9);
     }
 
     .levelbtn{
@@ -409,6 +417,7 @@
         height: 100px;
         border-radius: 5px;
         border: none;
+        padding: 5px 10px;
         z-index: 2;
     }
 
@@ -440,7 +449,7 @@
 
     .barbtn:hover{
         transition-duration: 0.5s;
-        transform: scale(0.9,0.9);
+        transform: scale(1.1,1.1);
     }
 
     .content-div{
@@ -493,8 +502,10 @@
     }
 
     .logoimg{
-        width: 300px;
-        height: 80px;
+        text-align: center;
+        justify-content: center;
+        width: 650px;
+        height: auto;
     }
 
     .complete {
@@ -511,7 +522,7 @@
 
     .btn:hover{
         transition-duration: 0.1s;
-        transform: scale(0.9,0.9);
+        transform: scale(1.2,1.2);
     }
 
     .maindiv::-webkit-scrollbar {
@@ -583,7 +594,7 @@
     }
 
     #loader{
-        margin-top: 200px;
+        margin-top: 100px;
         width: 100%;
         display: inline-block;
         justify-content: center;
@@ -632,17 +643,71 @@
         order: 1;
     }
 
-    .inc{
-        border: 1px solid black;
-        width: 30px;
-        height: 20px;
-        border-radius: 5px;
-        font-family: Dog;
-        font-size: 15px;
-        color: black;
-        font-weight: bold;
+    .btnpanel1{
+        margin-top:200px;
+        height: 350px;
+        width: 60%;
+        margin-left: 230px;
+        align-items: center;
     }
-       
+
+    .qtycontainer{
+        width: 150px;
+        height: auto;
+    }
+
+    .inc{
+        position: absolute;
+        margin-top: 10px;
+        font-family: Dog;
+        height: auto;
+        width: auto;
+        text-align: center;
+        background: transparent;
+        border: none;
+        color: #eea88f;
+    }
+
+    .parentdiv{
+        margin-top: 10px;
+        background-image: url("./assets/buttons/Incrementor.PNG");
+        width: 150px;
+        height: 39px;
+        margin-left: 80px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .incrementor-text{
+        width: 40px;
+        padding: 5px;
+        font-size: 18px;
+        color: #563209;
+        font-family: Dog;
+    }
+
+    .incrementor-btn{
+        margin-top: 6px;
+        width: 30px;
+        height: 55%;
+        border: none;
+        background: transparent;
+        z-index: 10;
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+        opacity: 1;
+      }
+
+    .incrementor{
+        margin-top: 10px;
+        font-family: Dog;
+        height: auto;
+        width: 100px;
+        color: incrementor-btn;
+        text-align: center;
+    }
 
 @media only screen and (max-width: 700px) {
     
@@ -692,17 +757,16 @@
     }
 
     .returnbtn{
-        margin-top: 30px;
-        width: 60px;
-        height: 60px;
-        margin-left: 220px;
+        margin-top: 0px;
+        width: 40px;
+        height: 40px;
+        margin-left: 150px;
     }
 
     .homediv{
         margin-top: 10px;
         width: 100%;
         height: auto;
-        border: 1px solid black;
     }
 
     .btnpanel{
@@ -730,13 +794,6 @@
         height: 25px;
     }
 
-    .nav-container{
-        height: 50px;
-        background-color: rgb(27, 27, 27);
-        width: 100%;
-        float: right;
-    }
-
     .stakeAllbtn{
         margin-left: 20px;
     }
@@ -746,6 +803,7 @@
         width: auto;
         justify-content: center;
         align-items: center;
+        border: none;
     }
 
     .itemwrapper {
@@ -773,7 +831,6 @@
     }
 
     .inc{
-        border: 1px solid black;
         width: 35px;
         height: 30px;
         border-radius: 5px;

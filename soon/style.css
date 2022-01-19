@@ -1,0 +1,53 @@
+    * {
+        box-sizing:border-box;
+        margin: 0;
+    }
+
+    @font-face {
+        font-family: Dog;
+        src: url("./Cryptopups-Regular.ttf");
+    }
+
+    body{
+        font-family: Dog;
+        overflow: scroll;
+        overflow-y:visible;
+        overflow-x: hidden;
+        background-image: url("./bg.png");
+        font-size: 60px;
+        font-weight: bold;
+        text-align: center;
+        color: white;
+    }
+    
+    .logo{
+        width: 600px;
+        height: 150px;
+        margin-top: 3%;
+    }
+
+@media only screen and (max-width: 700px) {
+    .logo{
+        width: 300px;
+        height: 80px;
+    }
+    .text1{
+        font-size: 40px;
+    }
+
+    .text2{
+        font-size: 30px;
+    }
+
+    .img{
+        margin-top: 50px;
+        width: 250px;
+        height: 250px;
+    }
+    
+}
+  
+
+
+
+

@@ -577,12 +577,16 @@ async function GetTemplateData(colc, id){
 }
 
 function PopulateShop(pack_data,balance){
+
+  document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
+  document.getElementById("letsstake").style.visibility = "visible";
+  console.log(pack_data);
   let src = "https://ipfs.wecan.dev/ipfs/";
 
   for(var index = 0; index < pack_data.length; ++index){
 
     var items = document.createElement('div');
-    items.className = "itemwrapper";
+    items.className = "shopwrapper";
 
     var div = document.createElement('div');
     div.id = 'tablecontainer';
@@ -593,6 +597,40 @@ function PopulateShop(pack_data,balance){
     img2.className = 'nftimg';
     items.appendChild(img2);
 
+    var div2 = document.createElement('p');
+    div2.textContent = pack_data[index].name;
+    div2.className = 'textstyle';
+    items.appendChild(div2);
+
+    var Text = document.createElement('p');
+    Text.className = "incrementor-text";
+    let number = 1;
+    var minusbtn = document.createElement('button');
+    minusbtn.className = "incrementor-btn";
+    var parentdiv = document.createElement('div');
+    parentdiv.className = 'parentdiv';
+    Text.textContent = number;
+    var plusbtn = document.createElement('button');
+    plusbtn.className = "incrementor-btn";
+    minusbtn.onclick = async function(){
+      if(Text.textContent > 1){
+        Text.textContent = parseFloat(Text.textContent) - 1 ;
+      }
+      else
+        ShowToast("Minimum value cannot be less than 1");
+    };
+    plusbtn.onclick = async function(){
+      if(Text.textContent < 5){
+        Text.textContent = parseFloat(Text.textContent) + 1 ;
+      }
+      else
+        ShowToast("Maximum limit is 5");
+    };
+    parentdiv.appendChild(minusbtn);
+    parentdiv.appendChild(Text);
+    parentdiv.appendChild(plusbtn);
+    items.appendChild(parentdiv);
+
     var ratesText = document.createElement('p');
     ratesText.className = "rates";
     var rate = document.createElement('div');
@@ -601,14 +639,14 @@ function PopulateShop(pack_data,balance){
     rate.appendChild(ratesText);
     items.appendChild(rate);
 
-    let btn = document.createElement('BUTTON');
+    let btn = document.createElement('input');
+    btn.className = "buybtn";
+    btn.type = "image";
+    btn.src = "./assets/buttons/buybtn.PNG";
     btn.id = pack_data[index].id;
-    btn.className = "levelbtn";
-    btn.textContent = "BUY";
     btn.onclick = async function buy(){
-      buypack(btn.id,rate.textContent,buyqty.value);
+      buypack(btn.id,rate.textContent,parseFloat(Text.textContent));
     }
-
     div.appendChild(items);
     div.appendChild(btn);
     mainDiv.appendChild(div);
@@ -641,23 +679,6 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
       stakepower+=element.rateperday;
     });
   }
-
-  /*var parentTable  = document.getElementById("tbody");
-  var tr = document.createElement('tr');
-  var td = document.createElement('td');
-  var stakingPower = document.createElement('p');
-  stakingPower.textContent = "Staking Power : " + stakepower + " KASU / H";
-  td.appendChild(stakingPower);
-  tr.appendChild(td);
-  parentTable.appendChild(tr);
-
-  var tr1 = document.createElement('tr');
-  var td1 = document.createElement('td');
-  var bal = document.createElement('p');
-  bal.textContent = "Token Balance : " + balance.toLocaleString('en-US') + " " + symbol;
-  td1.appendChild(bal);
-  tr1.appendChild(td1);
-  parentTable.appendChild(tr1);*/
 
   for (var index = 0; index < all_assets[0].unstakeasset.length; ++index) {
 
@@ -759,14 +780,24 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 function returnbtn(){
   clearUi();
   document.getElementById("home").style.visibility = "visible";
+  document.getElementById("switchpanel").style.display = "block";
+  document.getElementById("switchpanel2").style.display = "block";
 }
 
 async function switchshop(index) {
-    homescreen?homescreen=false:"";
-    document.getElementById("home").style.visibility = "hidden";
-    switchtoshop = index;
-    clearUi();
-    await main();
+    if(!loggedIn){
+      ShowToast("Please Login into your WAX Account");
+      WalletListVisible(!0);
+    }
+    else{
+      homescreen?homescreen=false:"";
+      document.getElementById("switchpanel").style.display = "none";
+      document.getElementById("switchpanel2").style.display = "none";
+      document.getElementById("home").style.visibility = "hidden";
+      switchtoshop = index;
+      clearUi();
+      await main();
+    }
 }
 
 function switchtodiffcoll(index){
@@ -780,6 +811,7 @@ function switchtodiffcoll(index){
 function clearUi(){
   document.getElementById('staking').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
+  document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
   var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
   if(mainDiv.children.length >=1){
