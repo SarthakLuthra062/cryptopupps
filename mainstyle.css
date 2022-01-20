@@ -58,6 +58,7 @@
         width: 100%;
         padding-left: 15px;
         padding-right: 15px;
+        list-style: none;
     }
 
     .main-content{
@@ -731,6 +732,10 @@
         justify-content: center;
         width: 135%;
     }
+    nav .li{
+        list-style: none;
+    }
+
     .logoimg{
         width: auto;
         height: 90px;
@@ -784,7 +789,6 @@
         width: 120%;
         height: auto;
         padding-top: 15%;
-        margin: 0px 0px 0px -50px;
         padding-bottom: 50%;
     }
 
