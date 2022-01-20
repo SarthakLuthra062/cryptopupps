@@ -61,6 +61,13 @@
         list-style: none;
     }
 
+    .footer{
+        width: 100%;
+        background: rgba(27, 27, 27, 0.8);
+        height: 100px;
+        order: 3;
+    }
+
     .main-content{
         width: 100%;
         height: 90%;
@@ -151,7 +158,7 @@
         display: none;
         overflow: scroll;
         overflow-x: hidden;
-        overflow-y: auto;
+        overflow-y: hidden;
         text-align: center;
     }
 
@@ -163,7 +170,7 @@
 
     .homediv{
         height:500px;
-        width: 90%;
+        width: 100%;
         top: 80px;
         position: absolute;
         align-items: flex-start;
@@ -743,7 +750,7 @@
     }
 
     .roadmap{
-        width: 120%;
+        width: 110%;
         height: auto;
     }
 
@@ -770,7 +777,7 @@
     }
 
     .homediv{
-        width: 120%;
+        width: 140%;
         height: auto;
     }
 
