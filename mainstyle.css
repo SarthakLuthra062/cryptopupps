@@ -413,12 +413,14 @@
 
     .homebtn{
         background: none;
-        width: 200px;
-        height: 100px;
+        width: auto;
+        height: 80px;
         border-radius: 5px;
         border: none;
         padding: 5px 10px;
         z-index: 2;
+        align-items: center;
+        justify-content: center;
     }
 
     .aboutusbtn{
@@ -427,6 +429,8 @@
         border-radius: 5px;
         border: none;
         z-index: 2;
+        align-items: center;
+        justify-content: center;
     }
 
     .barbtn{
@@ -637,18 +641,30 @@
     }
 
     .btnpanel{
-        width: 1100px;
-        height: 700px;
-        background: url(./assets/buttons/homepage_template.png);
+        width: auto;
+        height: auto;
         order: 1;
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: center;
+        padding-left: 20%;
+        padding-right: 20%;
+        padding-bottom: 15%;
+        padding-top: 10%;
+        background-image: url("./assets/buttons/homepage_template\ \(1\).png");
+        background-size: 100%;
+        background-repeat: no-repeat;
+        place-items: center;
     }
 
     .btnpanel1{
-        margin-top:200px;
-        height: 350px;
-        width: 60%;
-        margin-left: 230px;
-        align-items: center;
+        height: 100%;
+        width: 100%;
+        padding-top: 15%;
+        padding-left: 20%;
+        padding-right: 20%;
+        border: 1px solid black;
+        padding-bottom: 50px;
     }
 
     .qtycontainer{
@@ -691,7 +707,7 @@
         margin-top: 6px;
         width: 30px;
         height: 55%;
-        border: none;
+        border: non;
         background: transparent;
         z-index: 10;
     }
@@ -709,7 +725,7 @@
         text-align: center;
     }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 600px) and (min-width: 360px) {
     
     .nav-items{
         left: 80px;
@@ -719,9 +735,14 @@
         margin-right: 40px;
     }
 
+    nav .logo{
+        margin: 0 0 0 -40px;
+    }
+
     .logoimg{
-        width: 180px;
-        height: 60px;
+        width: 200px;
+        height: 70px;
+        margin-top: -5%;
     }
 
     .btn{
@@ -730,13 +751,14 @@
     }
 
     .roadmapTitle{
-        width: 180px;
-        height: 60px;
+        margin-top: 10px;
+        width: 250px;
+        height: 80px;
     }
 
     .roadmap{
-        width: 200px;
-        height: 300px;
+        width: 280px;
+        height: auto;
     }
 
     .barbtn{
@@ -765,28 +787,26 @@
 
     .homediv{
         margin-top: 10px;
-        width: 100%;
+        width: auto;
         height: auto;
     }
 
     .btnpanel{
-        width: 100%;
-        height: 700px;
-    }
-
-    .btnpanel1{
-        margin-left: ;
-
+        width: 120%;
+        height: auto;
+        padding-top: 15%;
+        margin: 0px 0px 0px -50px;
+        padding-bottom: 50%;
     }
 
     .homebtn{
-        width: 100px;
-        height: 50px;
+        width: 120px;
+        height: auto;
     }
 
     .aboutusbtn{
-        width: 130px;
-        height: 60px;
+        width: 80px;
+        height: auto;
     }
 
     .img{
