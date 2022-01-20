@@ -982,7 +982,7 @@ async function logout() {
   document.getElementById("loggedin").style.display = "none";
   document.getElementById("loggedout").style.display = "block";
   document.getElementById('staking').style.display = "none";
-  document.getElementById('return').style.display = "none"; 
+  document.getElementById('return').style.display = "hidden"; 
   loggedIn = false;
   HideMessage();
 }
@@ -993,7 +993,7 @@ async function login() {
       ShowToast("Logged in as: " + userAccount);
       document.getElementById("loggedout").style.display = "none";
       document.getElementById("loggedin").style.display = "block";
-      document.getElementById('return').style.display = "block";
+      document.getElementById('return').style.visibility = "visible";
       WalletListVisible(false);
       loggedIn = true;
       main();
