@@ -1019,15 +1019,15 @@ async function wallet_selectWallet(walletType) {
 }
 async function wallet_login() {
   if (useAnchor) {
-    /*var sessionList = await anchorLink.listSessions(dapp);
+    var sessionList = await anchorLink.listSessions(dapp);
     if (sessionList && sessionList.length > 0) {
       wallet_session = await anchorLink.restoreSession(dapp);
     } else {
       wallet_session = (await anchorLink.login(dapp)).session;
-    }*/
-    wallet_userAccount = "slicksheep12";//String(wallet_session.auth).split("@")[0];
-    //auth = String(wallet_session.auth).split("@")[1];
-    //anchorAuth = auth;
+    }
+    wallet_userAccount = String(wallet_session.auth).split("@")[0];
+    auth = String(wallet_session.auth).split("@")[1];
+    anchorAuth = auth;
 
   } else {
     wallet_userAccount = await wax.login();
