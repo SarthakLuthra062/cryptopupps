@@ -354,7 +354,7 @@
     .returnbtn:hover{
         width: auto;
         height: auto;
-        background: url("assets/buttons/back_hover.png");
+        background: url("./assets/back_hover.png");
     }
 
     .stkbtn{
@@ -697,7 +697,7 @@
         margin-top: 6px;
         width: 30px;
         height: 55%;
-        border: non;
+        border: none;
         background: transparent;
         z-index: 10;
     }
