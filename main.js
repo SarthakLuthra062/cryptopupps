@@ -27,6 +27,7 @@ var canclick = false;
 var mainDiv = document.getElementById("maindiv");
 var loader = document.getElementById('loader').style;
 var lvlloader = document.getElementById('lvlloader').style;
+main();
 
 async function main() {
 
@@ -611,20 +612,6 @@ function PopulateShop(pack_data,balance){
     Text.textContent = number;
     var plusbtn = document.createElement('button');
     plusbtn.className = "incrementor-btn";
-    minusbtn.onclick = async function(){
-      if(Text.textContent > 1){
-        Text.textContent = parseFloat(Text.textContent) - 1 ;
-      }
-      else
-        ShowToast("Minimum value cannot be less than 1");
-    };
-    plusbtn.onclick = async function(){
-      if(Text.textContent < 5){
-        Text.textContent = parseFloat(Text.textContent) + 1 ;
-      }
-      else
-        ShowToast("Maximum limit is 5");
-    };
     parentdiv.appendChild(minusbtn);
     parentdiv.appendChild(Text);
     parentdiv.appendChild(plusbtn);
@@ -635,8 +622,25 @@ function PopulateShop(pack_data,balance){
     var rate = document.createElement('div');
     rate.className = 'ratesText';
     ratesText.textContent = pack_data[index].price;
+    let price = pack_data[index].price
     rate.appendChild(ratesText);
     items.appendChild(rate);
+    minusbtn.onclick = async function(){
+      if(Text.textContent > 1){
+        Text.textContent = parseFloat(Text.textContent) - 1 ;
+        ratesText.textContent = (parseFloat(price) * parseFloat(Text.textContent)).toFixed(4);
+      }
+      else
+        ShowToast("Minimum value cannot be less than 1");
+    };
+    plusbtn.onclick = async function(){
+      if(Text.textContent < 5){
+        Text.textContent = parseFloat(Text.textContent) + 1 ;
+        ratesText.textContent = (parseFloat(price) * parseFloat(Text.textContent)).toFixed(4);
+      }
+      else
+        ShowToast("Maximum limit is 5");
+    };
 
     let btn = document.createElement('input');
     btn.className = "buybtn";
@@ -644,7 +648,7 @@ function PopulateShop(pack_data,balance){
     btn.src = "./assets/buttons/buybtn.PNG";
     btn.id = pack_data[index].id;
     btn.onclick = async function buy(){
-      buypack(btn.id,rate.textContent,parseFloat(Text.textContent));
+      buypack(btn.id,price,parseFloat(Text.textContent));
     }
     div.appendChild(items);
     div.appendChild(btn);
