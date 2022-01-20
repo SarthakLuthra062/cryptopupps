@@ -788,13 +788,13 @@
     .btnpanel{
         width: 120%;
         height: auto;
-        padding-top: 15%;
-        padding-bottom: 50%;
     }
 
     .homebtn{
-        width: 120px;
+        width: auto;
+        max-width: 110px;
         height: auto;
+        max-height: 80px;
     }
 
     .aboutusbtn{
