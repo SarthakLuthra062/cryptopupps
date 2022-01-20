@@ -66,6 +66,7 @@
         background: rgba(27, 27, 27, 0.8);
         height: 100px;
         order: 3;
+        display: none;
     }
 
     .main-content{
