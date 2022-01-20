@@ -173,8 +173,8 @@
     }
 
     .roadmap{
-        width: auto;
-        height: 1700px;
+        width: 80%;
+        height: auto;
         order: 2;
     }
 
@@ -743,7 +743,7 @@
     }
 
     .roadmap{
-        width: 280px;
+        width: 120%;
         height: auto;
     }
 
@@ -770,15 +770,14 @@
     }
 
     .homediv{
-        margin-top: 10px;
-        width: auto;
+        width: 120%;
         height: auto;
+        border: 1px solid black;
     }
 
     .btnpanel{
-        width: 120%;
+        width: 83%;
         height: auto;
-        background-size: 100%;
     }
 
     .homebtn{
