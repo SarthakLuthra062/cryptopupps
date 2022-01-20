@@ -13,7 +13,7 @@
         overflow: scroll;
         overflow-y:visible;
         overflow-x: hidden;
-        background-image: url("./assets/buttons/bg3.png");
+        background-image: url("./assets/bg3.PNG");
         background-repeat:repeat-y;
     }
 
