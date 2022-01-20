@@ -803,15 +803,8 @@ async function switchshop(index) {
     }
 }
 
-function switchtodiffcoll(index){
-  if(collection != index.id){
-    collection = index.id;
-    switchtoshop?switchshop(false):'';
-    main();
-  }
-}
-
-function clearUi(){
+async function clearUi(){
+  console.log("in");
   document.getElementById('staking').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
   document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
@@ -980,12 +973,13 @@ async function selectWallet(walletType) {
   login();
 }
 async function logout() {
-  wallet_logout();
+  await wallet_logout();
   clearUi();
   document.getElementById("loggedin").style.display = "none";
   document.getElementById("loggedout").style.display = "block";
   document.getElementById('staking').style.display = "none";
-  document.getElementById('return').style.display = "hidden"; 
+  document.getElementById('return').style.visibility = "hidden";
+  returnbtn(); 
   loggedIn = false;
   HideMessage();
 }

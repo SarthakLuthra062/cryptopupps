@@ -98,7 +98,7 @@
         text-align: center;
         width: 128px;
         height: 40px;
-        margin: 0 50px;
+        border: 2px solid black;
     }
 
     .sortbtn{
@@ -178,6 +178,7 @@
         justify-content: center;
         display: flex;
         flex-flow: row wrap;
+        pointer-events: none;
     }
 
     .roadmap{
@@ -405,12 +406,11 @@
     }
 
     .stakeall_btn{
-        background:url("./assets/buttons/stakeall_1.png");
         width: 100px;
         height: 55px;
-        border-radius: 5px;
         border: none;
-        z-index: 2;
+        border: 1px solid black;
+        z-index: 10;
     }
 
     .stakeall_btn:hover{
@@ -427,6 +427,7 @@
         z-index: 2;
         align-items: center;
         justify-content: center;
+        pointer-events: auto; 
     }
 
     .aboutusbtn{
@@ -448,19 +449,16 @@
         border-radius: 5px;
         border: none;
         font-size: 16px;
-        font-weight: bold;
-        text-transform: uppercase;
-        z-index: 2;
-    }
-
-    .levelbtn:hover{
-        transition-duration: 0.5s;
-        transform: scale(0.9,0.9);
     }
 
     .barbtn:hover{
         transition-duration: 0.5s;
         transform: scale(1.1,1.1);
+    }
+
+    .levelbtn:hover{
+        transition-duration: 0.5s;
+        transform: scale(0.9,0.9);
     }
 
     .content-div{
