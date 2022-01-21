@@ -3,9 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
   <title>CryptoPupps</title>
   <link rel="stylesheet" href="mainstyle.css">
+  <link rel="icon" type="image/png" href="./assets/Logo.png" sizes="200x200" />
   <script src="waxjs.js"></script>
   <script src="https://unpkg.com/anchor-link@3"></script>
   <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
@@ -51,7 +52,7 @@
                     </li>
                     <li>
                         <div id="staking" style="display: none;">
-                        <input class="barbtn" id = "stkall" src="./assets/buttons/stakeall_1.png" style="height: auto;" onclick="stakeall()" type="image">
+                        <input class="barbtn" id = "stkall" src="./assets/buttons/stakeall_1.png" style="width:auto; height: 70px;" onclick="stakeall()" type="image">
                         <input class="barbtn" id = "claim" src="./assets/buttons/claim.PNG" onclick="claimbalance()" type="image">
                         </div>
                     </li>
@@ -64,14 +65,16 @@
                         <input class="wcw" id="wcw" src="./assets/wcw.png" onclick='selectWallet("cloud")' type="image">
                     </div>
                     <div class="maindiv" id="maindiv"></div>
+                    <div class="shopPaneldiv" id="shopPaneldiv" style="display: none;"></div>
                     <div class="homediv">
                     <div class="btnpanel" id="home">
-                            <input class="btn homebtn" id = "home" src="./assets/buttons/home.PNG" onclick="" type="image">
-                            <input class="btn homebtn" id = "shop" src="./assets/buttons/shop_navbar.PNG" onclick="switchshop(true)" type="image">
+                            <input class="btn homebtn" id = "shop" src="./assets/buttons/shop_navbar.PNG" onclick="shopPanel(true)" type="image">
                             <input class="btn homebtn" id = "stakingbar" src="./assets/buttons/stake_navbar.PNG" onclick="switchshop(false)" type="image">
-                            <input class="btn homebtn" id = "packs" src="./assets/buttons/packsbtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank')" type="image">
-                            <input class="btn homebtn" id = "evolve" src="./assets/buttons/evolvebtn.PNG" onclick="" type="image">
-                            <input class="btn homebtn" id = "aboutus" src="./assets/buttons/aboutusbtn.PNG" onclick="" type="image">
+                            <input class="btn homebtn" id = "evolve" src="./assets/buttons/evolvebtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank')" type="image">
+                            <input class="btn homebtn" id = "packs" src="./assets/buttons/packsbtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/blends','_blank')" type="image">
+                            <input class="btn homebtn" id = "packs" src="./assets/buttons/packsbtn.PNG" onclick="window.open('./coming_soon.html','_self')" type="image">
+                            <input class="btn homebtn" id = "aboutus" src="./assets/buttons/aboutusbtn.PNG" onclick="window.open('./about_us.html','_self')" type="image">
+                            <input class="btn homebtn" style="background: transparent;" type="button">
                     </div>
                     <div style="width: 80%; order: 2;justify-content: center;align-items: center;display: flex;flex-direction: column;">
                         <img id="switchpanel" class="roadmapTitle" src="./assets/buttons/roadmap.PNG">

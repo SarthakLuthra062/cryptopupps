@@ -26,7 +26,6 @@ var switchtoshop = false;
 var canclick = false;
 var mainDiv = document.getElementById("maindiv");
 var loader = document.getElementById('loader').style;
-var lvlloader = document.getElementById('lvlloader').style;
 main();
 
 async function main() {
@@ -39,7 +38,6 @@ async function main() {
     {
       clearUi();
       loader.display = "block";
-      lvlloader.display = "none";
 
       balancepromise = GetBalance();
       balance = await balancepromise;
@@ -580,7 +578,6 @@ function PopulateShop(pack_data,balance){
 
   document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
   document.getElementById("letsstake").style.visibility = "visible";
-  console.log(pack_data);
   let src = "https://ipfs.wecan.dev/ipfs/";
 
   for(var index = 0; index < pack_data.length; ++index){
@@ -780,11 +777,71 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     mainDiv.style.display = "block";
 }
 
-function returnbtn(){
-  clearUi();
-  document.getElementById("home").style.visibility = "visible";
-  document.getElementById("switchpanel").style.display = "block";
-  document.getElementById("switchpanel2").style.display = "block";
+async function returnbtn(){
+  var result = window.getComputedStyle(document.getElementById('loader'), '').display;
+  if(result != "block"){
+    await clearUi();
+    if(switchtoshop)
+      shopPanel(true)
+    else{
+      document.getElementById("home").style.visibility = "visible";
+      document.getElementById("switchpanel").style.display = "block";
+      document.getElementById("switchpanel2").style.display = "block"; 
+    }
+  }
+}
+
+async function shopPanel(index){
+  if(index){
+    homescreen?homescreen=false:"";
+    switchtoshop = false;
+    document.getElementById("switchpanel").style.display = "none";
+    document.getElementById("switchpanel2").style.display = "none";
+    document.getElementById("home").style.visibility = "hidden";
+    document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
+    document.getElementById("letsstake").style.visibility = "visible";
+
+    var packs = document.createElement('img');
+    packs.className = 'shopPanelbtn';
+    packs.src = "./assets/buttons/shopPanel_packs.PNG";
+    packs.onclick = async function(){
+      switchshop(true);
+    }
+
+    var blends = document.createElement('img');
+    blends.className = 'shopPanelbtn';
+    blends.src = "./assets/buttons/shopPanel_blends.PNG";
+    blends.onclick = async function(){
+      window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank');
+    }
+    
+    var market = document.createElement('img');
+    market.className = 'shopPanelbtn';
+    market.src = "./assets/buttons/shopPanel_market.PNG";
+    market.onclick = async function(){
+      window.open('https://neftyblocks.com/c/cryptopuppyz','_blank');
+    }
+    
+    var marketAH = document.createElement('img');
+    marketAH.className = 'shopPanelbtn';
+    marketAH.src = "./assets/buttons/shopPanel_marketAH.PNG";
+    marketAH.onclick = async function(){
+      window.open('https://wax.atomichub.io/market?collection_name=cryptopuppyz&order=desc&sort=created&symbol=WAX','_blank');
+    }
+
+    var creatorSale = document.createElement('img');
+    creatorSale.className = 'shopPanelbtn';
+    creatorSale.src = "./assets/buttons/shopPanel_creatorSale.PNG";
+
+    shopPaneldiv = document.getElementById("shopPaneldiv");
+    shopPaneldiv.appendChild(packs);
+    shopPaneldiv.appendChild(blends);
+    shopPaneldiv.appendChild(market);
+    shopPaneldiv.appendChild(marketAH);
+    shopPaneldiv.appendChild(creatorSale);
+    shopPaneldiv.style.display = "block";
+
+  }
 }
 
 async function switchshop(index) {
@@ -794,22 +851,23 @@ async function switchshop(index) {
     }
     else{
       homescreen?homescreen=false:"";
+      clearUi();
       document.getElementById("switchpanel").style.display = "none";
       document.getElementById("switchpanel2").style.display = "none";
       document.getElementById("home").style.visibility = "hidden";
       switchtoshop = index;
-      clearUi();
       await main();
     }
 }
 
 async function clearUi(){
-  console.log("in");
   document.getElementById('staking').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
   document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
   var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
+  var shopPaneldiv = document.getElementById("shopPaneldiv");
+  shopPaneldiv.style.display="none";
   if(mainDiv.children.length >=1){
     var child = mainDiv.lastElementChild;
     while (child) {
@@ -818,10 +876,17 @@ async function clearUi(){
     }
   }
   if(parentTable.children.length >=1){
-    var child2 = parentTable.lastElementChild;
-    while (child2) {
-      parentTable.removeChild(child2);
-      child2 = parentTable.lastElementChild;
+    var child = parentTable.lastElementChild;
+    while (child) {
+      parentTable.removeChild(child);
+      child = parentTable.lastElementChild;
+    }
+  }
+  if(shopPaneldiv.children.length >=1){
+    var child = shopPaneldiv.lastElementChild;
+    while (child) {
+      shopPaneldiv.removeChild(child);
+      child = shopPaneldiv.lastElementChild;
     }
   }
 }

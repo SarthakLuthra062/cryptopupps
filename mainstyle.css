@@ -181,6 +181,17 @@
         pointer-events: none;
     }
 
+    .shopPaneldiv{
+        height:auto;
+        width: 80%;
+        top: 30%;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
     .roadmap{
         width: 80%;
         height: auto;
@@ -389,6 +400,13 @@
     .buybtn:hover{
         transition-duration: 0.5s;
         transform: scale(0.9,0.9);
+    }
+
+    .shopPanelbtn{
+        width: auto;
+        max-width: 450px;
+        height: auto;
+        margin: 10px;
     }
 
     .levelbtn{
@@ -649,14 +667,16 @@
     .btnpanel{
         width: auto;
         height: auto;
+        min-height: auto;
         order: 1;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: auto auto auto;
+        -ms-grid-column-align:start;
         justify-content: center;
         padding-left: 20%;
         padding-right: 20%;
-        padding-bottom: 15%;
-        padding-top: 10%;
+        padding-top: 18%;
+        padding-bottom: 20%;
         background-image: url("./assets/buttons/homepage_template\ \(1\).png");
         background-size: 100%;
         background-repeat: no-repeat;
@@ -723,10 +743,14 @@
 
 @media only screen and (max-width: 600px) and (min-width: 360px) {
 
+    body{
+        overflow-x: auto;
+    }
     .nav-items{
         display: flex;
         justify-content: center;
         width: 135%;
+        padding-left: 100px;
     }
     nav .li{
         list-style: none;
@@ -735,6 +759,17 @@
     .logoimg{
         width: auto;
         height: 90px;
+    }
+
+    .shopPaneldiv{
+        margin-top: 20%;
+        width: auto;
+    }
+
+    .shopPanelbtn{
+        width: auto;
+        height: auto;
+        max-width: 300px;
     }
 
     .btn{
@@ -787,9 +822,9 @@
 
     .homebtn{
         width: auto;
-        max-width: 110px;
+        max-width: 115px;
         height: auto;
-        max-height: 80px;
+        max-height: 82px;
     }
 
     .aboutusbtn{
