@@ -13,7 +13,7 @@
 </head>
 <body id="body">
     <div id="toast" style="visibility: hidden"></div>
-    <div class="nav-container">
+    <div class="nav-container" style="order:1;">
         <div class="wrapper">
             <nav>
                 <ul class="nav-items">
@@ -31,7 +31,7 @@
             </nav>
         </div>
     </div>
-    <div class="header-container">
+    <div class="header-container" style="order:2;">
             <div class="main-content">
                 <input id="letsstake" src="./assets/buttons/lets_stake (1).png" style="margin-top: 80px;visibility: hidden;" type="image">
                 <div id="loader" style="display: none;">
@@ -52,7 +52,7 @@
                     </li>
                     <li>
                         <div id="staking" style="display: none;">
-                        <input class="barbtn" id = "stkall" src="./assets/buttons/stakeall_1.png" style="width:auto; height: 70px;" onclick="stakeall()" type="image">
+                        <input class="stakeall_btn barbtn" id = "stkall" src="./assets/buttons/stakeall.png" style="width:auto; height: 70px;" onclick="stakeall()" type="image">
                         <input class="barbtn" id = "claim" src="./assets/buttons/claim.PNG" onclick="claimbalance()" type="image">
                         </div>
                     </li>
@@ -77,11 +77,19 @@
                             <input class="btn homebtn" style="background: transparent;" type="button">
                     </div>
                     <div style="width: 80%; order: 2;justify-content: center;align-items: center;display: flex;flex-direction: column;">
+                        <img id="team" class="team" src="./assets/buttons/team.png">
                         <img id="switchpanel" class="roadmapTitle" src="./assets/buttons/roadmap.PNG">
                         <img id="switchpanel2" class="roadmap" src="./assets/buttons/roadmap_img.PNG">
                     </div>
-                    <div class="footer"></div>  
-                    </div>      
+                    <div class="footer">
+                        <div class="social">
+                            <input class="footer-button" src="./assets/buttons/telegram.png" type="image">
+                            <input class="footer-button" src="./assets/buttons/twitter.png" type="image">
+                            <input class="footer-button" src="./assets/buttons/instagram.png" type="image">
+                            <input class="footer-button" src="./assets/buttons/discord.png" type="image">
+                        </div>
+                        <div class="social">CryptoVerse Z © 2022</div>
+                    </div>
                     <div id="message" style="visibility: hidden">
                         <div><button class="close" onclick="HideMessage()">x</button></div>
                         <div id="messagecontent"></div>

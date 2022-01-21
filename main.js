@@ -26,6 +26,7 @@ var switchtoshop = false;
 var canclick = false;
 var mainDiv = document.getElementById("maindiv");
 var loader = document.getElementById('loader').style;
+var switchtoblends = false;
 main();
 
 async function main() {
@@ -549,7 +550,8 @@ async function GetShop() {
         template:body.rows[j].template_id,
         id:body.rows[j].id,
         total:body.rows[j].total,
-        available:body.rows[j].available
+        available:body.rows[j].available,
+        schema_name:body.rows[j].schema_name
       });
     }
   }
@@ -579,8 +581,24 @@ function PopulateShop(pack_data,balance){
   document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
   document.getElementById("letsstake").style.visibility = "visible";
   let src = "https://ipfs.wecan.dev/ipfs/";
+  var blend_data = [];
+  var packData = [];
+  for(let data of pack_data){
+    if(data.schema_name == "blends")
+      blend_data.push(data);
+    else
+      packData.push(data);
+  }
+  var data = [];
+  console.log(switchtoblends);
+  if(!switchtoblends)
+    data = packData;
+  else
+    data = blend_data;
 
-  for(var index = 0; index < pack_data.length; ++index){
+  if(data.length < 1)
+    ShowToast("No Listing Yet");
+  for(var index = 0; index < data.length; ++index){
 
     var items = document.createElement('div');
     items.className = "shopwrapper";
@@ -590,12 +608,12 @@ function PopulateShop(pack_data,balance){
     div.className = 'tablecontainer';
 
     img2 = document.createElement('img');
-    img2.src = src + pack_data[index].img;
+    img2.src = src + data[index].img;
     img2.className = 'nftimg';
     items.appendChild(img2);
 
     var div2 = document.createElement('p');
-    div2.textContent = pack_data[index].name;
+    div2.textContent = data[index].name;
     div2.className = 'textstyle';
     items.appendChild(div2);
 
@@ -618,8 +636,8 @@ function PopulateShop(pack_data,balance){
     ratesText.className = "rates";
     var rate = document.createElement('div');
     rate.className = 'ratesText';
-    ratesText.textContent = pack_data[index].price;
-    let price = pack_data[index].price
+    ratesText.textContent = data[index].price;
+    let price = data[index].price
     rate.appendChild(ratesText);
     items.appendChild(rate);
     minusbtn.onclick = async function(){
@@ -643,7 +661,7 @@ function PopulateShop(pack_data,balance){
     btn.className = "buybtn";
     btn.type = "image";
     btn.src = "./assets/buttons/buybtn.PNG";
-    btn.id = pack_data[index].id;
+    btn.id = data[index].id;
     btn.onclick = async function buy(){
       buypack(btn.id,price,parseFloat(Text.textContent));
     }
@@ -786,6 +804,7 @@ async function returnbtn(){
       shopPanel(true)
     else{
       document.getElementById("home").style.visibility = "visible";
+      document.getElementById("team").style.display = "block";
       document.getElementById("switchpanel").style.display = "block";
       document.getElementById("switchpanel2").style.display = "block"; 
     }
@@ -797,6 +816,7 @@ async function shopPanel(index){
     homescreen?homescreen=false:"";
     switchtoshop = false;
     document.getElementById('return').style.visibility = "visible";
+    document.getElementById("team").style.display = "none";
     document.getElementById("switchpanel").style.display = "none";
     document.getElementById("switchpanel2").style.display = "none";
     document.getElementById("home").style.visibility = "hidden";
@@ -807,6 +827,7 @@ async function shopPanel(index){
     packs.className = 'shopPanelbtn';
     packs.src = "./assets/buttons/shopPanel_packs.PNG";
     packs.onclick = async function(){
+      switchtoblends = false;
       switchshop(true);
     }
 
@@ -814,7 +835,8 @@ async function shopPanel(index){
     blends.className = 'shopPanelbtn';
     blends.src = "./assets/buttons/shopPanel_blends.PNG";
     blends.onclick = async function(){
-      window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank');
+      switchtoblends = true;
+      switchshop(true);
     }
     
     var market = document.createElement('img');
@@ -857,6 +879,7 @@ async function switchshop(index) {
       document.getElementById("switchpanel").style.display = "none";
       document.getElementById("switchpanel2").style.display = "none";
       document.getElementById("home").style.visibility = "hidden";
+      document.getElementById("team").style.display = "none";
       switchtoshop = index;
       await main();
     }
