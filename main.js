@@ -795,6 +795,7 @@ async function shopPanel(index){
   if(index){
     homescreen?homescreen=false:"";
     switchtoshop = false;
+    document.getElementById('return').style.visibility = "visible";
     document.getElementById("switchpanel").style.display = "none";
     document.getElementById("switchpanel2").style.display = "none";
     document.getElementById("home").style.visibility = "hidden";

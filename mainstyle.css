@@ -184,7 +184,6 @@
     .shopPaneldiv{
         height:auto;
         width: 80%;
-        top: 30%;
         position: absolute;
         align-items: center;
         justify-content: center;
@@ -759,11 +758,6 @@
     .logoimg{
         width: auto;
         height: 90px;
-    }
-
-    .shopPaneldiv{
-        margin-top: 20%;
-        width: auto;
     }
 
     .shopPanelbtn{
