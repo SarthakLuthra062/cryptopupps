@@ -658,6 +658,7 @@ function PopulateShop(pack_data,balance){
 function PopulateMenu(rates,staked, unstakeasset, balance) {
   let src = "https://ipfs.wecan.dev/ipfs/";
   var all_assets = [{staked,unstakeasset}];
+  console.log(all_assets);
   var pools = "";
   var ids = [];
   var stakepower=0.00;
@@ -667,7 +668,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 
   document.getElementById("letsstake").style.visibility = "visible";
 
-  if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length){
+  if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     ShowToast("No Assets To Display !");
