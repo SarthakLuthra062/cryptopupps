@@ -667,7 +667,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 
   document.getElementById("letsstake").style.visibility = "visible";
 
-  if(unstaked.length < 1){
+  if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length){
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     ShowToast("No Assets To Display !");
