@@ -212,18 +212,19 @@ nav .logo{
     pointer-events: none;
 }
 
-.shopPaneldiv{
-    height:auto;
-    width: 80%;
-    position: absolute;
-    display: grid;
-    grid-template-columns: auto auto;
-    -ms-grid-column-align:start;
-    justify-content: center;
+.tablecontainerShop {
+    display: block;
+    display: inline-block;
+    width: 90%;
+    height: auto;
 }
 
-.creatorSale{
-    grid-column: span 1 / 2;
+.shopPaneldiv{
+    padding-top:50px;
+    height:auto;
+    position: absolute;
+    justify-content: center;
+    margin: 0px 50px;
 }
 
 .roadmap{
@@ -445,11 +446,14 @@ width: 100%;
 }
 
 .shopPanelbtn{
-    width: auto;
-    max-width: 450px;
+    width: 270px;
     height: auto;
-    margin: 10px;
     cursor:pointer;
+}
+
+.shopPanelbtn:hover{
+    transition-duration: 0.5s;
+    transform: scale(0.9,0.9);
 }
 
 .team{
@@ -786,6 +790,11 @@ input[type=number]::-webkit-inner-spin-button {
 body{
     overflow-x: auto;
 }
+
+.tablecontainerShop{
+  margin: 0px 0px 0px -200px;
+}
+
 .nav-items{
     display: flex;
     justify-content: center;
@@ -799,12 +808,6 @@ nav .li{
 .logoimg{
     width: auto;
     height: 90px;
-}
-
-.shopPanelbtn{
-    width: auto;
-    height: auto;
-    max-width: 300px;
 }
 
 .btn{
