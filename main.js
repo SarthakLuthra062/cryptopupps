@@ -807,6 +807,7 @@ async function returnbtn(){
       document.getElementById("home").style.visibility = "visible";
       document.getElementById("team").style.display = "block";
       document.getElementById("story").style.display = "block";
+      document.getElementById("whitepaper").style.display = "block";
       document.getElementById("switchpanel").style.display = "block";
       document.getElementById("switchpanel2").style.display = "block"; 
     }
@@ -820,6 +821,7 @@ async function shopPanel(index){
     document.getElementById('return').style.visibility = "visible";
     document.getElementById("team").style.display = "none";
     document.getElementById("story").style.display = "none";
+    document.getElementById("whitepaper").style.display = "none";
     document.getElementById("switchpanel").style.display = "none";
     document.getElementById("switchpanel2").style.display = "none";
     document.getElementById("home").style.visibility = "hidden";
@@ -890,6 +892,7 @@ async function switchshop(index) {
       document.getElementById("home").style.visibility = "hidden";
       document.getElementById("team").style.display = "none";
       document.getElementById("story").style.display = "none";
+      document.getElementById("whitepaper").style.display = "none";
       switchtoshop = index;
       await main();
     }
