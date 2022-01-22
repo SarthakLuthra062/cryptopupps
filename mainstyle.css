@@ -221,10 +221,10 @@ nav .logo{
 
 .shopPaneldiv{
     padding-top:50px;
+    position: absolute;
     height:auto;
     position: absolute;
     justify-content: center;
-    margin: 0px 50px;
 }
 
 .roadmap{
