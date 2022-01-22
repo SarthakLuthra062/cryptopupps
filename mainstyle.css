@@ -230,15 +230,16 @@ nav .logo{
 .whitepaperbtn{
     width: 350px;
     height: auto;
-    margin-left: 65%;
+    margin-left: 68%;
     margin-top: -110px;
     pointer-events: auto;
     background-size: 100%;
+    transform: rotate(-05deg);
 }
 
 .whitepaperbtn:hover{
     transition-duration: 0.5s;
-    transform: scale(0.95,0.95);
+    transform: scale(0.98,0.98);
 }
 
 .roadmap{
