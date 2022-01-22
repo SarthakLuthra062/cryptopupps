@@ -857,15 +857,18 @@ async function shopPanel(index){
     }
 
     var creatorSale = document.createElement('img');
-    creatorSale.className = 'shopPanelbtn';
+    creatorSale.className = 'shopPanelbtn creatorSale';
     creatorSale.src = "./assets/buttons/shopPanel_creatorSale.PNG";
+
+    var linebreak = document.createElement("br");
 
     shopPaneldiv = document.getElementById("shopPaneldiv");
     shopPaneldiv.appendChild(packs);
     shopPaneldiv.appendChild(blends);
+    shopPaneldiv.appendChild(creatorSale);
+    shopPaneldiv.appendChild(linebreak);
     shopPaneldiv.appendChild(market);
     shopPaneldiv.appendChild(marketAH);
-    shopPaneldiv.appendChild(creatorSale);
     shopPaneldiv.style.display = "block";
 
   }

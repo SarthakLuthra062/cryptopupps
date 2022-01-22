@@ -216,10 +216,14 @@ nav .logo{
     height:auto;
     width: 80%;
     position: absolute;
-    align-items: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    -ms-grid-column-align:start;
     justify-content: center;
-    display: flex;
-    flex-flow: row wrap;
+}
+
+.creatorSale{
+    grid-column: span 1 / 2;
 }
 
 .roadmap{
