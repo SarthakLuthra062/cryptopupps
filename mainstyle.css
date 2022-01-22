@@ -227,6 +227,20 @@ nav .logo{
     justify-content: center;
 }
 
+.whitepaperbtn{
+    width: 350px;
+    height: auto;
+    margin-left: 65%;
+    margin-top: -110px;
+    pointer-events: auto;
+    background-size: 100%;
+}
+
+.whitepaperbtn:hover{
+    transition-duration: 0.5s;
+    transform: scale(0.95,0.95);
+}
+
 .roadmap{
     padding-top: 50px;
     width: 100%;
@@ -459,7 +473,8 @@ width: 100%;
 .team{
     width: 125%;
     height: auto;
-    padding-bottom: 50px;
+    margin-bottom: 20px;
+    margin-top: 50px;
 }
 
 .levelbtn{
@@ -809,6 +824,7 @@ nav .li{
     width: auto;
     height: 90px;
 }
+
 
 .btn{
     width: 70px;
