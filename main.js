@@ -30,7 +30,6 @@ var switchtoblends = false;
 main();
 
 async function main() {
-
   if (!loggedIn)
     autoLogin();
   else if(loggedIn)
@@ -743,6 +742,9 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     div.appendChild(items);
     div.appendChild(bar);
     mainDiv.appendChild(div);
+    let h = mainDiv.offsetHeight;
+    document.getElementById("homediv").style.height = h + "px";
+    console.log(document.getElementById("homediv").offsetHeight);
   }
 
   for (var index = 0; index < all_assets[0].staked.length; ++index) {
@@ -790,7 +792,6 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
       div.appendChild(bar);
       mainDiv.appendChild(div);
     }
-
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     mainDiv.style.display = "block";
@@ -805,6 +806,7 @@ async function returnbtn(){
     else{
       document.getElementById("home").style.visibility = "visible";
       document.getElementById("team").style.display = "block";
+      document.getElementById("story").style.display = "block";
       document.getElementById("switchpanel").style.display = "block";
       document.getElementById("switchpanel2").style.display = "block"; 
     }
@@ -817,6 +819,7 @@ async function shopPanel(index){
     switchtoshop = false;
     document.getElementById('return').style.visibility = "visible";
     document.getElementById("team").style.display = "none";
+    document.getElementById("story").style.display = "none";
     document.getElementById("switchpanel").style.display = "none";
     document.getElementById("switchpanel2").style.display = "none";
     document.getElementById("home").style.visibility = "hidden";
@@ -880,6 +883,7 @@ async function switchshop(index) {
       document.getElementById("switchpanel2").style.display = "none";
       document.getElementById("home").style.visibility = "hidden";
       document.getElementById("team").style.display = "none";
+      document.getElementById("story").style.display = "none";
       switchtoshop = index;
       await main();
     }
@@ -889,7 +893,6 @@ async function clearUi(){
   document.getElementById('staking').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
   document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
-  var parentTable  = document.getElementById("tbody");
   mainDiv.style.display = "none";
   var shopPaneldiv = document.getElementById("shopPaneldiv");
   shopPaneldiv.style.display="none";
@@ -900,13 +903,7 @@ async function clearUi(){
       child = mainDiv.lastElementChild;
     }
   }
-  if(parentTable.children.length >=1){
-    var child = parentTable.lastElementChild;
-    while (child) {
-      parentTable.removeChild(child);
-      child = parentTable.lastElementChild;
-    }
-  }
+  
   if(shopPaneldiv.children.length >=1){
     var child = shopPaneldiv.lastElementChild;
     while (child) {
