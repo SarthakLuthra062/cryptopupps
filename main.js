@@ -683,6 +683,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
 
+  document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
   document.getElementById("letsstake").style.visibility = "visible";
 
   if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
@@ -815,6 +816,7 @@ async function returnbtn(){
 }
 
 async function shopPanel(index){
+  loader.display = "block";
   if(index){
     homescreen?homescreen=false:"";
     switchtoshop = false;
@@ -874,6 +876,7 @@ async function shopPanel(index){
     table.appendChild(market);
     table.appendChild(marketAH);
     shopPaneldiv.appendChild(table);
+    loader.display = "none";
     shopPaneldiv.style.display = "block";
 
   }
@@ -901,7 +904,6 @@ async function switchshop(index) {
 async function clearUi(){
   document.getElementById('staking').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
-  document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
   mainDiv.style.display = "none";
   var shopPaneldiv = document.getElementById("shopPaneldiv");
   shopPaneldiv.style.display="none";
