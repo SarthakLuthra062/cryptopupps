@@ -266,32 +266,35 @@ function FilterUnstaked(assets, staked) {
 async function FilterStaked(assets) {
 
   let results = [];
+  var path = "/v1/chain/get_table_rows";
+  var data = JSON.stringify({
+    json: true,
+    code: "puppyzzstake",
+    scope: "puppyzzstake",
+    table: "nfts",
+    key_type: `i64`,
+    index_position: 2,
+    lower_bound: eosjsName.nameToUint64(wallet_userAccount),
+    limit: 1000,
+  });
 
-  for (let i = 0; i < assets.length; i++) {
-    var path = "/v1/chain/get_table_rows";
-    var data = JSON.stringify({
-      json: true,
-      code: "puppyzzstake",
-      scope: "puppyzzstake",
-      table: "nfts",
-      lower_bound: assets[i].asset_id,
-      upper_bound: assets[i].asset_id,
-      limit: 1,
-    });
+  const response = await fetch("https://" + endpoint + path, {
+    headers: {
+      "Content-Type": "text/plain"
+    },
+    body: data,
+    method: "POST",
+  });
 
-    const response = await fetch("https://" + endpoint + path, {
-      headers: {
-        "Content-Type": "text/plain"
-      },
-      body: data,
-      method: "POST",
-    });
-
-    const body = await response.json();
-    var data = body.rows[0];
-    if(typeof data !== "undefined"){
-      if(data.asset_id == assets[i].asset_id && data.account == wallet_userAccount)
-      results.push(assets[i]);
+  const body = await response.json();
+  var data = body.rows;
+  if(typeof data[0] !== "undefined"){
+    for (let i = 0; i < assets.length; i++) {
+      for(let j=0;j<data.length;j++)
+      {
+    if(data[j].asset_id == assets[i].asset_id && data[j].account == wallet_userAccount)
+    results.push(assets[i]);
+      }
     }
   }
   return results;
@@ -366,7 +369,7 @@ function startTimer(duration) {
 
 function restartTimer(t)
 {
-clearInterval(t);
+  clearInterval(t);
 }
 
 async function GetAssets(colc,rates) {
