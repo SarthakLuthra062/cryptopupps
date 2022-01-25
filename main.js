@@ -580,7 +580,7 @@ async function GetTemplateData(colc, id){
 
 function PopulateShop(pack_data,balance){
 
-  document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
+  document.getElementById("letsstake").src = "./assets/pupmarket.PNG";
   document.getElementById("letsstake").style.visibility = "visible";
   let src = "https://ipfs.wecan.dev/ipfs/";
   var blend_data = [];
@@ -663,7 +663,7 @@ function PopulateShop(pack_data,balance){
     let btn = document.createElement('input');
     btn.className = "buybtn";
     btn.type = "image";
-    btn.src = "./assets/buttons/buybtn.PNG";
+    btn.src = "./assets/buybtn.PNG";
     btn.id = data[index].id;
     btn.onclick = async function buy(){
       buypack(btn.id,price,parseFloat(Text.textContent));
@@ -687,7 +687,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
 
-  document.getElementById("letsstake").src = "./assets/buttons/lets_stake (1).png";
+  document.getElementById("letsstake").src = "./assets/lets_stake (1).png";
   document.getElementById("letsstake").style.visibility = "visible";
 
   if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
@@ -815,12 +815,12 @@ async function shopPanel(index){
     document.getElementById("switchpanel").style.display = "none";
     document.getElementById("switchpanel2").style.display = "none";
     document.getElementById("home").style.visibility = "hidden";
-    document.getElementById("letsstake").src = "./assets/buttons/pupmarket.PNG";
+    document.getElementById("letsstake").src = "./assets/pupmarket.PNG";
     document.getElementById("letsstake").style.visibility = "visible";
 
     var packs = document.createElement('img');
     packs.className = 'shopPanelbtn';
-    packs.src = "./assets/buttons/shopPanel_packs.PNG";
+    packs.src = "./assets/shopPanel_packs.PNG";
     packs.onclick = async function(){
       switchtoblends = false;
       switchshop(true);
@@ -828,7 +828,7 @@ async function shopPanel(index){
 
     var blends = document.createElement('img');
     blends.className = 'shopPanelbtn';
-    blends.src = "./assets/buttons/shopPanel_blends.PNG";
+    blends.src = "./assets/shopPanel_blends.PNG";
     blends.onclick = async function(){
       switchtoblends = true;
       switchshop(true);
@@ -836,21 +836,21 @@ async function shopPanel(index){
     
     var market = document.createElement('img');
     market.className = 'shopPanelbtn';
-    market.src = "./assets/buttons/shopPanel_market.PNG";
+    market.src = "./assets/shopPanel_market.PNG";
     market.onclick = async function(){
       window.open('https://neftyblocks.com/c/cryptopuppyz','_blank');
     }
     
     var marketAH = document.createElement('img');
     marketAH.className = 'shopPanelbtn';
-    marketAH.src = "./assets/buttons/shopPanel_marketAH.PNG";
+    marketAH.src = "./assets/shopPanel_marketAH.PNG";
     marketAH.onclick = async function(){
       window.open('https://wax.atomichub.io/market?collection_name=cryptopuppyz&order=desc&sort=created&symbol=WAX','_blank');
     }
 
     var creatorSale = document.createElement('img');
     creatorSale.className = 'shopPanelbtn';
-    creatorSale.src = "./assets/buttons/shopPanel_creatorSale.PNG";
+    creatorSale.src = "./assets/shopPanel_creatorSale.PNG";
 
     var linebreak = document.createElement("br");
 

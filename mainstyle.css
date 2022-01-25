@@ -277,7 +277,7 @@ nav .logo{
 }
 
 .itemwrapper {
-    background-image: url("./assets/buttons/template2.png");
+    background-image: url("./assets/template2.png");
     width: 310px;
     height: 360px;
     align-items: center;
@@ -291,7 +291,7 @@ nav .logo{
 }
 
 .shopwrapper {
-    background-image: url("./assets/buttons/template2.png");
+    background-image: url("./assets/template2.png");
     background-repeat:no-repeat;
     width: 400px;
     height: 500px;
@@ -349,6 +349,7 @@ nav .logo{
     width: 140px;
     height: auto;
     margin-top: -20px;
+    margin-bottom: 5px;
 }
 
 .packimg {
@@ -376,7 +377,7 @@ nav .logo{
 .ratesText {
     margin-top: 10px;
     font-family: Dog;
-    background-image: url("./assets/buttons/ratesTemplate1.png");
+    background-image: url("./assets/ratesTemplate1.png");
     height: 50px;
     width: 180px;
     color: #563209;
@@ -387,7 +388,7 @@ nav .logo{
 
 .ratediv {
     font-family: Dog;
-    background-image: url("./assets/buttons/ratesTemplate1.png");
+    background-image: url("./assets/ratesTemplate1.png");
     width: 220px;
     height: 57px;
     background-size: 100%;
@@ -454,7 +455,7 @@ width: 100%;
 
 .stkbtn{
     justify-content: center;
-    background: url("./assets/buttons/stake1.png");
+    background: url("./assets/stake1.png");
     margin-top: 10px;
     width: 110px;
     height: 70px;
@@ -465,14 +466,14 @@ width: 100%;
 
 .stkbtn:hover{
     transition-duration: 0.5s;
-    background: url("./assets/buttons/stake_hover1.PNG");
+    background: url("./assets/stake_hover1.PNG");
     background-repeat: no-repeat;
     background-size: 90%;
 }
 
 .unstkbtn{
     justify-content: center;
-    background: url("./assets/buttons/unstake1.png");
+    background: url("./assets/unstake1.png");
     margin-top: 10px;
     width: 110px;
     height: 70px;
@@ -483,7 +484,7 @@ width: 100%;
 
 .unstkbtn:hover{
     transition-duration: 0.5s;
-    background: url("./assets/buttons/unstake_hover1.PNG");
+    background: url("./assets/unstake_hover1.PNG");
     background-repeat: no-repeat;
     background-size: 90%;
 }
@@ -779,7 +780,7 @@ body::-webkit-scrollbar-thumb {
     padding-right: 20%;
     padding-top: 18%;
     padding-bottom: 20%;
-    background-image: url("./assets/buttons/homepage_template\ \(1\).png");
+    background-image: url("./assets/homepage_template\ \(1\).png");
     background-size: 100%;
     background-repeat: no-repeat;
     place-items: center;
@@ -804,7 +805,7 @@ body::-webkit-scrollbar-thumb {
 
 .parentdiv{
     margin-top: 10px;
-    background-image: url("./assets/buttons/Incrementor1.PNG");
+    background-image: url("./assets/Incrementor1.PNG");
     width: 150px;
     height: 39px;
     text-align: center;
