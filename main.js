@@ -607,11 +607,12 @@ function PopulateShop(pack_data,balance){
 
     var div = document.createElement('div');
     div.id = 'tablecontainer';
-    div.className = 'tablecontainer';
+    div.className = 'shoptablecontainer';
 
     img2 = document.createElement('img');
     img2.src = src + data[index].img;
-    img2.className = 'nftimg';
+    console.log(img2.src);
+    img2.className = 'shopnft';
     items.appendChild(img2);
 
     var div2 = document.createElement('p');
@@ -728,16 +729,8 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     var bar = document.createElement('div');
     bar.className = "bar";
 
-    let stkbtn = document.createElement('input');
-    stkbtn.className = "stkbtn";
-    stkbtn.type = "image";
-    stkbtn.src = "./assets/buttons/stake.PNG";
-    stkbtn.onmouseover = async()=>{
-      stkbtn.src = "./assets/buttons/stake_hover.PNG";
-    };
-    stkbtn.onmouseleave = async()=>{
-      stkbtn.src = "./assets/buttons/stake.PNG";
-    };
+    let stkbtn = document.createElement('button');
+    stkbtn.className = "stkbtn"
     stkbtn.id = all_assets[0].unstakeasset[index].asset_id;
     stkbtn.onclick = async function s(){
     stakeasset(stkbtn.id)};
@@ -777,16 +770,8 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
       var bar = document.createElement('div');
       bar.className = "bar";
 
-      let stkbtn = document.createElement('input');
-      stkbtn.className = "stkbtn";
-      stkbtn.type = "image";
-      stkbtn.src = "./assets/buttons/unstake.PNG";
-      stkbtn.onmouseover = async()=>{
-        stkbtn.src = "./assets/buttons/unstake_hover.PNG";
-      };
-      stkbtn.onmouseleave = async()=>{
-        stkbtn.src = "./assets/buttons/unstake.PNG";
-      };
+      let stkbtn = document.createElement('button');
+      stkbtn.className = "unstkbtn";
       stkbtn.id = all_assets[0].staked[index].asset_id;
       stkbtn.onclick = async function s(){
       assetunstake(stkbtn.id);};

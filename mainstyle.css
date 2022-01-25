@@ -293,8 +293,8 @@ nav .logo{
 .shopwrapper {
     background-image: url("./assets/buttons/template2.png");
     background-repeat:no-repeat;
-    width: 310px;
-    height: 380px;
+    width: 400px;
+    height: 500px;
     align-items: center;
     align-content: center;
     font: 16px/26px Georgia, Garamond, Serif;
@@ -302,7 +302,18 @@ nav .logo{
     flex-direction: column;
     justify-content: center;
     padding: 60px 2px;
-    background-size: 100%;
+    background-size:100%;
+}
+
+.shoptablecontainer {
+    display: block;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 3px;
+    width: 400px;
+    height: auto;
+    text-align: center;
+    font-size: 20px;
 }
 
 .tablecontainer {
@@ -334,6 +345,12 @@ nav .logo{
     padding: 10px;
 }
 
+.shopnft{
+    width: 140px;
+    height: auto;
+    margin-top: -20px;
+}
+
 .packimg {
     width: 230px;
     height: auto;
@@ -359,7 +376,7 @@ nav .logo{
 .ratesText {
     margin-top: 10px;
     font-family: Dog;
-    background-image: url("./assets/buttons/ratesTemplate.png");
+    background-image: url("./assets/buttons/ratesTemplate1.png");
     height: 50px;
     width: 180px;
     color: #563209;
@@ -370,7 +387,7 @@ nav .logo{
 
 .ratediv {
     font-family: Dog;
-    background-image: url("./assets/buttons/ratesTemplate.png");
+    background-image: url("./assets/buttons/ratesTemplate1.png");
     width: 220px;
     height: 57px;
     background-size: 100%;
@@ -436,22 +453,45 @@ width: 100%;
 }
 
 .stkbtn{
+    justify-content: center;
+    background: url("./assets/buttons/stake1.png");
     margin-top: 10px;
     width: 110px;
     height: 70px;
-    color: white;
-    border-radius: 5px;
+    border: transparent;
+    background-repeat: no-repeat;
+    background-size: 90%;
 }
 
 .stkbtn:hover{
     transition-duration: 0.5s;
+    background: url("./assets/buttons/stake_hover1.PNG");
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+
+.unstkbtn{
+    justify-content: center;
+    background: url("./assets/buttons/unstake1.png");
+    margin-top: 10px;
+    width: 110px;
+    height: 70px;
+    border: transparent;
+    background-repeat: no-repeat;
+    background-size: 90%;
+}
+
+.unstkbtn:hover{
+    transition-duration: 0.5s;
+    background: url("./assets/buttons/unstake_hover1.PNG");
+    background-repeat: no-repeat;
+    background-size: 90%;
 }
 
 .buybtn{
     margin-top: 10px;
     width: 110px;
     height: 50px;
-    color: white;
     border-radius: 5px;
 }
 
@@ -718,11 +758,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 .rates{
-    position: absolute;
-    float: left;
-    margin-top: 12px;
-    margin-left: 22px;
-    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-left: -15px;
+    padding-top: 8.5px;
+    font-size: 25px;
 }
 
 .btnpanel{
@@ -763,12 +804,13 @@ body::-webkit-scrollbar-thumb {
 
 .parentdiv{
     margin-top: 10px;
-    background-image: url("./assets/buttons/Incrementor.PNG");
+    background-image: url("./assets/buttons/Incrementor1.PNG");
     width: 150px;
     height: 39px;
     text-align: center;
     display: flex;
     justify-content: center;
+    background-size: 100%;
 }
 
 .incrementor-text{
