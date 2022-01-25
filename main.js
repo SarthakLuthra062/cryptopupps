@@ -851,6 +851,9 @@ async function shopPanel(index){
     var creatorSale = document.createElement('img');
     creatorSale.className = 'shopPanelbtn';
     creatorSale.src = "./assets/shopPanel_creatorSale.PNG";
+    creatorSale.onclick = async function(){
+      window.open('https://wax.atomichub.io/explorer/account/burb2.wam?collection_name=cryptopuppyz&order=desc&seller=burb2.wam&sort=created&state=0,1,4&symbol=WAX#listings','_blank');
+    }
 
     var linebreak = document.createElement("br");
 

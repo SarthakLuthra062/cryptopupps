@@ -466,7 +466,7 @@ width: 100%;
 
 .stkbtn:hover{
     transition-duration: 0.5s;
-    background: url("./assets/stake_hover1.PNG");
+    background: url("./assets/stakehover.PNG");
     background-repeat: no-repeat;
     background-size: 90%;
 }
@@ -484,7 +484,7 @@ width: 100%;
 
 .unstkbtn:hover{
     transition-duration: 0.5s;
-    background: url("./assets/unstake_hover1.PNG");
+    background: url("./assets/unstakehover.PNG");
     background-repeat: no-repeat;
     background-size: 90%;
 }
@@ -532,6 +532,11 @@ width: 100%;
     margin-left: 5px;
     text-transform: uppercase;
 }
+
+.stakeall_btn:{
+    background-image: url("./assets/StakeAll.PNG");
+}
+
 
 .stakeall_btn:hover{
     background-image: url("./assets/stakeall_hover.PNG");
