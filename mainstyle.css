@@ -664,18 +664,18 @@ body::-webkit-scrollbar {
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    box-shadow: inset 0 0 6px red;
+    box-shadow:transparent;
 }
 
 body::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    box-shadow: inset 0 0 20px #F9BB0C;
+    box-shadow:transparent;
 }
 
 .balance{
