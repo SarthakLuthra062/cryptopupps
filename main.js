@@ -690,8 +690,13 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
   document.getElementById("letsstake").src = "./assets/lets_stake (1).png";
   document.getElementById("letsstake").style.visibility = "visible";
 
+  var user_balance = document.createElement('p');
+  user_balance.textContent = "User Balance : " + balance.toLocaleString('en-US') + " " + symbol;
+  document.getElementById('balance').appendChild(user_balance);
+
   if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
     loader.display = "none";
+    document.getElementById('balance').style.display = "block";
     document.getElementById('staking').style.display = "block";
     ShowToast("No Assets To Display !");
     return;
