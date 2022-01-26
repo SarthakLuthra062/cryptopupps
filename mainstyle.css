@@ -190,7 +190,6 @@ nav .logo{
     overflow-x: hidden;
     overflow-y: auto;
     text-align: center;
-    margin-top: 10px;
 }
 
 .roadmapTitle{
@@ -228,10 +227,12 @@ nav .logo{
 }
 
 .whitepaperbtn{
-    width: 290px;
+    width: auto;
+    max-width: 260px;
     height: auto;
+    max-height: 350px;
     margin-left: 68%;
-    margin-top: -100px;
+    margin-top: -98px;
     pointer-events: auto;
     background-size: 100%;
     transform: rotate(-05deg);
@@ -675,11 +676,13 @@ width: 100%;
 
 body::-webkit-scrollbar {
     width:5px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.0);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0);
     border-radius: 5px;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {

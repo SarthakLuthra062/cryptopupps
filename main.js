@@ -696,7 +696,6 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 
   if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
     loader.display = "none";
-    document.getElementById('balance').style.display = "block";
     document.getElementById('staking').style.display = "block";
     ShowToast("No Assets To Display !");
     return;
@@ -746,7 +745,6 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     mainDiv.appendChild(div);
     let h = mainDiv.offsetHeight;
     document.getElementById("homediv").style.height = h + "px";
-    console.log(document.getElementById("homediv").offsetHeight);
   }
 
   for (var index = 0; index < all_assets[0].staked.length; ++index) {
@@ -787,6 +785,7 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
       mainDiv.appendChild(div);
     }
     loader.display = "none";
+    document.getElementById('balance').style.display = "block";
     document.getElementById('staking').style.display = "block";
     mainDiv.style.display = "block";
 }
@@ -899,23 +898,22 @@ async function switchshop(index) {
 
 async function clearUi(){
   document.getElementById('staking').style.display = "none";
+  document.getElementById('balance').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
   mainDiv.style.display = "none";
-  var shopPaneldiv = document.getElementById("shopPaneldiv");
   shopPaneldiv.style.display="none";
-  if(mainDiv.children.length >=1){
-    var child = mainDiv.lastElementChild;
+  clearAppends("maindiv");
+  clearAppends("shopPaneldiv")
+  clearAppends("balance");
+}
+
+async function clearAppends(idTag){
+  var div = document.getElementById(idTag);
+  if(div.children.length >= 1){
+    var child = div.lastElementChild;
     while (child) {
-      mainDiv.removeChild(child);
-      child = mainDiv.lastElementChild;
-    }
-  }
-  
-  if(shopPaneldiv.children.length >=1){
-    var child = shopPaneldiv.lastElementChild;
-    while (child) {
-      shopPaneldiv.removeChild(child);
-      child = shopPaneldiv.lastElementChild;
+      div.removeChild(child);
+      child = div.lastElementChild;
     }
   }
 }
