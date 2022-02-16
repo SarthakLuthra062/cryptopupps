@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
-  <title>CryptoPupps</title>
+  <title>Cryptopups</title>
   <link rel="stylesheet" href="mainstyle.css">
   <link rel="icon" type="image/png" href="./assets/Logo.png" sizes="200x200" />
+  <link href='https://fonts.googleapis.com/css?family=Oswald' rel='stylesheet'>
   <script src="waxjs.js"></script>
   <script src="https://unpkg.com/anchor-link@3"></script>
   <script src="https://unpkg.com/anchor-link-browser-transport@3"></script>
@@ -28,9 +29,9 @@
         });
     </script>
 </head>
-<body id="body">
+<body>
     <div id="toast" style="visibility: hidden"></div>
-    <div class="nav-container" style="order:1;">
+    <div class="nav-container">
         <div class="wrapper">
             <nav>
                 <ul class="nav-items">
@@ -48,7 +49,7 @@
             </nav>
         </div>
     </div>
-    <div class="header-container">
+    <div class="header-container" style="order: 1;">
             <div class="main-content">
                 <img id="letsstake" style="margin-top: 80px;visibility: hidden;">
                 <div id="loader" style="display: none;">
@@ -78,18 +79,18 @@
                         <input class="anchor" id="anchor" src="./assets/anchor.png" onclick='selectWallet("anchor")' type="image"><br>
                         <input class="wcw" id="wcw" src="./assets/wcw.png" onclick='selectWallet("cloud")' type="image">
                     </div>
-                    <div class="maindiv" id="maindiv" style="display: none;"></div>
                     <div class="shopPaneldiv" id="shopPaneldiv" style="display: none;"></div>
+                    <div class="maindiv" id="maindiv" style="display: none;order: 2;"></div>
                     <div class="homediv" id="homediv">
                     <div class="btnpanel" id="home">
                             <input class="btn homebtn" id = "shop" src="./assets/shop_navbar.PNG" onclick="shopPanel(true)" type="image">
                             <input class="btn homebtn" id = "stakingbar" src="./assets/stake_navbar.PNG" onclick="switchshop(false)" type="image">
-                            <input class="btn homebtn" id = "evolve" src="./assets/evolvebtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank')" type="image">
-                            <input class="btn homebtn" id = "packs" src="./assets/packsbtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/blends','_blank')" type="image">
+                            <input class="btn homebtn" id = "evolve" src="./assets/evolvebtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/blends','_blank')" type="image">
+                            <input class="btn homebtn" id = "packs" src="./assets/packsbtn.PNG" onclick="window.open('https://neftyblocks.com/c/cryptopuppyz/packs','_blank')" type="image">
                             <input class="btn homebtn" id = "breeding" src="./assets/breeding.PNG" onclick="window.open('./coming_soon.html','_self')" type="image">
                             <a href="#story"><input class="btn homebtn" id = "aboutus" src="./assets/aboutusbtn.PNG" type="image"></a>
                             <input class="btn homebtn" style="background: transparent;" type="button">
-                    </div>
+                        </div>
                     <div style="width: 80%; order: 2;justify-content: center;align-items: center;display: flex;flex-direction: column;pointer-events: none;">
                         <img id="switchpanel" class="roadmapTitle" src="./assets/roadmap.PNG">
                         <img id="switchpanel2" class="roadmap" src="./assets/roadmap_img.PNG">
@@ -101,24 +102,50 @@
                         <div><button class="close" onclick="HideMessage()">x</button></div>
                         <div id="messagecontent"></div>
                     </div>
-                    <div class="footer" id="footer">
-                        <div class="social">
+                    <div class="footer-parent" style="order: 3;">
+                        <div class="footer" id="footer">
+                       <div class="social-bar">
+                        <div style="margin-top: 20px;margin-left: 5%;float:left;order:1;display: flex;flex-direction: column;">
+                            <span style="text-align: left;text-decoration: underline;order: 1;">Company Info</span>
+                            <div style="font-size: 15px;order: 2;margin-top: 20px;display:flex;flex-direction:column;align-items: stretch;text-align: left;">
+                                <span>Company &nbsp;:&nbsp; CryptoVerse</span><br>
+                                <span>Founder / CEO&nbsp;&nbsp;:&nbsp; Abijith Mahendran</span><br>
+                                <span>35, West Chekkara Street, Kumarasamypatti, Salem, Tamilnadu, India</span><br>
+                                <span>GSTIN : 33FPPPM2980Q1ZX</span><br>
+                                <span>UDYAM ID : UDYAM-TN-20-0044637</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;margin-right: 4%;float:right;display: flex;flex-direction: column;order:2">
+                        <span style="text-align: right;text-decoration: underline;">Stay Connected</span>
+                        <div style="margin-top: 20px;display: flex;flex-direction: row;gap: 10px;">
                             <input class="footer-button" src="./assets/telegram.png" onclick="window.open('https://t.me/cryptopupz','_blank')" type="image">
                             <input class="footer-button" src="./assets/twitter.png" onclick="window.open('https://twitter.com/PupsCrypto','_blank')" type="image">
                             <input class="footer-button" src="./assets/instagram.png" onclick="window.open('https://www.instagram.com/CryptoPups_official/','_blank')" type="image">
                             <input class="footer-button" src="./assets/discord.png" onclick="window.open('https://discord.gg/9TauNN3T9f','_blank')" type="image">
                         </div>
-                        <div class="social">CryptoVerse Z © 2022</div>
-                    </div>         
+                        </div>
+                        <div>
+                        </div>
+                       </div>
+                        <div class="social-bar" style="font-size: 18px;margin-top: 15px;padding-bottom: 5px;">Business Enquiries :
+                            <a style="text-decoration: none;color: white;" href="mailto:cryptoversezbusiness@gmail.com?subject=subject">&nbsp;&nbsp;cryptoversezbusiness@gmail.com&nbsp;&nbsp;</a></div>
+                        <hr style="width: 100%;color: white;">
+                        <div class="social-bar" style="padding-top: 05px;padding-bottom: 10px;">
+                        <span style="font-size: 13px;">Copyright © 2022 CryptoVerse Z All Rights Reserved</span>
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
     <script> 
-        const contract = "puppyzzstake";
-        const marketContract = "rarecitymrkt";
-        const symbol = "KASSU";
+        const contract = "cvpuppystake";
+        const marketContract = "cvpuppyzshop";
+        const tokenContract = "thekasutoken";
+        const symbol = "KASU";
     </script>
     <script src="./main.js"></script>
     </div>
     </div>
 </body>
+
 </html>

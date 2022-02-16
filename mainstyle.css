@@ -1,5 +1,14 @@
+html {
+    background: url("./assets/bg3.PNG") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
 * {
-    box-sizing:border-box;
+    box-sizing: border-box;
     margin: 0;
 }
 
@@ -8,17 +17,15 @@
     src: url("./assets/Cryptopups-Regular.ttf");
 }
 
-body{
+body {
     font-family: Dog;
     overflow: scroll;
-    overflow-y:visible;
+    overflow-y: visible;
     overflow-x: hidden;
-    background-image: url("./assets/bg3.PNG");
-    background-repeat:repeat-y;
     scroll-behavior: smooth;
 }
 
-.nav-container{
+.nav-container {
     position: absolute;
     height: 114px;
     background-color: transparent;
@@ -26,23 +33,23 @@ body{
     width: 100%;
 }
 
-.wrapper{
+.wrapper {
     left: 0px;
     top: 0px;
 }
 
-nav{
+nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 100px;
 }
 
-nav ul{
+nav ul {
     display: flex;
 }
 
-nav .logo{
+nav .logo {
     display: flex;
     justify-content: center;
     width: auto;
@@ -51,7 +58,7 @@ nav .logo{
     padding: 0px 10px;
 }
 
-.nav-items{
+.nav-items {
     display: flex;
     justify-content: center;
     position: absolute;
@@ -62,40 +69,60 @@ nav .logo{
     list-style: none;
 }
 
-.footer{
-    order: 3;
-    width: 100%;
-    height: 100px;
-    background: rgba(27,27,27,0.5);
+.footer {
+    width: auto;
+    min-width: 70%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     pointer-events: auto;
-    align-self: flex-end;
+    margin-bottom: 4px;
+    font-family:'Oswald';
+    color: white;
+    font-size: 18px;
 }
 
-.footer-button{
+.footer-parent {
+    left: 0;
+    bottom: 0;
+    margin-top: 150px;
+    order: 3;
+    width: auto;
+    min-width: 105%;
+    height: auto;
+    min-height: 310px;
+    background: rgba(27, 27, 27, 0.7);
+    display: flex;
+    justify-content: center;
+    background-size: 120%;
+}
+
+.footer-button {
     width: 50px;
     height: 50px;
     cursor: pointer;
 }
 
-.footer-button:hover{
+.footer-button:hover {
     transition-duration: 0.5s;
-    transform: scale(0.9,0.9);
+    transform: scale(0.9, 0.9);
 }
 
-.social{
+.social {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    margin-top: 10px;
     height: 100px;
-    font-size: 20px;
-    gap: 15px;
-    color: white;
+    gap: 12px;
 }
-.main-content{
+
+.soial-bar {
+    display: flex;
+    justify-content: row;
+}
+
+.main-content {
     width: 100%;
     height: 90%;
     position: absolute;
@@ -105,29 +132,29 @@ nav .logo{
     top: 115px;
 }
 
-.secondheader{
+.secondheader {
     position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
-    top:20px;
+    top: 20px;
     text-align: center;
     align-items: center;
     justify-content: center;
 }
 
-.secondheader li{
+.secondheader li {
     list-style: none;
 }
 
-.stakeAllbtn{
+.stakeAllbtn {
     text-align: center;
     width: 128px;
     height: 40px;
     border: 2px solid black;
 }
 
-.sortbtn{
+.sortbtn {
     background-color: #E4A903;
     border: none;
     border-radius: 5px;
@@ -141,49 +168,51 @@ nav .logo{
     font-weight: 500;
 }
 
-.filterbtn{
+.filterbtn {
     position: absolute;
-    top:20px;
+    top: 20px;
     width: 128px;
     height: 40px;
     float: right;
 }
 
-.collectonsbtn{
-    display: table-cell; vertical-align: middle;
-    background: rgba(27,27,27,0.5);
+.collectonsbtn {
+    display: table-cell;
+    vertical-align: middle;
+    background: rgba(27, 27, 27, 0.5);
     border: 3px solid #E4A903;
     color: #E4A903;
     width: 98%;
-    height:80px;
-    font-family:Dog;
+    height: 80px;
+    font-family: Dog;
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    display: table-cell; vertical-align: middle;
+    display: table-cell;
+    vertical-align: middle;
 }
 
-.collectonsbtn:hover{
+.collectonsbtn:hover {
     transition-duration: 0.5s;
     border: 1px solid rgba(255, 255, 255, 1);
-    transform: scale(0.9,0.9);
+    transform: scale(0.9, 0.9);
 }
 
-.header-container{
+.header-container {
     height: auto;
 }
 
 
-.content_wrapper{
+.content_wrapper {
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
 }
 
-.maindiv{
-    height:100%;
-    width: 75%;
+.maindiv {
+    height: 100%;
+    width: 80%;
     position: absolute;
     font: 16px/26px;
     overflow: scroll;
@@ -192,15 +221,15 @@ nav .logo{
     text-align: center;
 }
 
-.roadmapTitle{
+.roadmapTitle {
     width: auto;
     height: 100px;
     order: 1;
 }
 
-.homediv{
-    height:auto;
-    min-height: calc(100% + 450px);
+.homediv {
+    height: auto;
+    min-height: 200%;
     width: 100%;
     top: 80px;
     position: absolute;
@@ -218,15 +247,15 @@ nav .logo{
     height: auto;
 }
 
-.shopPaneldiv{
-    padding-top:50px;
+.shopPaneldiv {
+    padding-top: 50px;
     position: absolute;
-    height:auto;
+    height: auto;
     position: absolute;
     justify-content: center;
 }
 
-.whitepaperbtn{
+.whitepaperbtn {
     width: auto;
     max-width: 260px;
     height: auto;
@@ -238,12 +267,12 @@ nav .logo{
     transform: rotate(-05deg);
 }
 
-.whitepaperbtn:hover{
+.whitepaperbtn:hover {
     transition-duration: 0.5s;
-    transform: scale(0.98,0.98);
+    transform: scale(0.98, 0.98);
 }
 
-.roadmap{
+.roadmap {
     padding-top: 50px;
     width: 100%;
     height: auto;
@@ -288,12 +317,12 @@ nav .logo{
     justify-content: center;
     padding: 60px 2px;
     background-size: 100%;
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 }
 
 .shopwrapper {
     background-image: url("./assets/template2.png");
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
     width: 400px;
     height: 500px;
     align-items: center;
@@ -303,7 +332,7 @@ nav .logo{
     flex-direction: column;
     justify-content: center;
     padding: 60px 2px;
-    background-size:100%;
+    background-size: 100%;
 }
 
 .shoptablecontainer {
@@ -332,7 +361,7 @@ nav .logo{
     position: absolute;
     font-size: 24px;
     font-weight: 900;
-    color:#2596be;
+    color: #2596be;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -341,12 +370,12 @@ nav .logo{
 }
 
 .nftimg {
-    width: 140px;
+    width: 150px;
     height: auto;
     padding: 10px;
 }
 
-.shopnft{
+.shopnft {
     width: 140px;
     height: auto;
     margin-top: -20px;
@@ -359,15 +388,16 @@ nav .logo{
     padding: 10px;
 }
 
-.textcontainer{
+.textcontainer {
     display: inline-block;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height:80px;
+    height: 80px;
 }
 
 .textstyle {
+    width: 70%;
     color: #eea88f;
     font-weight: bold;
     font-family: Dog;
@@ -379,8 +409,8 @@ nav .logo{
     margin-top: 10px;
     font-family: Dog;
     background-image: url("./assets/ratesTemplate1.png");
-    height: 50px;
-    width: 180px;
+    height: 55px;
+    width: 200px;
     color: #563209;
     text-align: center;
     background-size: 100%;
@@ -396,13 +426,13 @@ nav .logo{
 }
 
 .wcw {
-margin-top: 10px;
-width: 100%;
+    margin-top: 10px;
+    width: 100%;
 }
 
-.wcw:hover{
+.wcw:hover {
     transition-duration: 0.5s;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
 }
 
 .anchor {
@@ -410,16 +440,17 @@ width: 100%;
     width: 100%;
 }
 
-.anchor:hover{
+.anchor:hover {
     transition-duration: 0.5s;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
 }
 
 .scroll {
     overflow-y: scroll;
     height: 120px;
     width: 300px;
-    margin: 10px 5px; padding: 5px;
+    margin: 10px 5px;
+    padding: 5px;
     text-align: justify;
 }
 
@@ -436,25 +467,25 @@ width: 100%;
     align-items: center;
 }
 
-.shopbtn:hover{
+.shopbtn:hover {
     background-image: url("assets/buttons/shop_1_hover.png");
 }
 
 
-.returnbtn{
+.returnbtn {
     width: 50px;
     height: 50px;
     margin: 40px;
     visibility: hidden;
 }
 
-.returnbtn:hover{
+.returnbtn:hover {
     width: auto;
     height: auto;
     background: url("./assets/back_hover.png");
 }
 
-.stkbtn{
+.stkbtn {
     justify-content: center;
     background: url("./assets/stake1.png");
     margin-top: 10px;
@@ -465,14 +496,14 @@ width: 100%;
     background-size: 90%;
 }
 
-.stkbtn:hover{
+.stkbtn:hover {
     transition-duration: 0.5s;
-    background: url("./assets/stakehover.PNG");
+    background: url("./assets/stakehover.png");
     background-repeat: no-repeat;
     background-size: 90%;
 }
 
-.unstkbtn{
+.unstkbtn {
     justify-content: center;
     background: url("./assets/unstake1.png");
     margin-top: 10px;
@@ -483,44 +514,44 @@ width: 100%;
     background-size: 90%;
 }
 
-.unstkbtn:hover{
+.unstkbtn:hover {
     transition-duration: 0.5s;
-    background: url("./assets/unstakehover.PNG");
+    background: url("./assets/unstakehover.png");
     background-repeat: no-repeat;
     background-size: 90%;
 }
 
-.buybtn{
+.buybtn {
     margin-top: 10px;
     width: 110px;
     height: 50px;
     border-radius: 5px;
 }
 
-.buybtn:hover{
+.buybtn:hover {
     transition-duration: 0.5s;
-    transform: scale(0.9,0.9);
+    transform: scale(0.9, 0.9);
 }
 
-.shopPanelbtn{
+.shopPanelbtn {
     width: 270px;
     height: auto;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.shopPanelbtn:hover{
+.shopPanelbtn:hover {
     transition-duration: 0.5s;
-    transform: scale(0.9,0.9);
+    transform: scale(0.9, 0.9);
 }
 
-.team{
-    width: 125%;
+.team {
+    width: 130%;
     height: auto;
     margin-bottom: 20px;
     margin-top: 50px;
 }
 
-.levelbtn{
+.levelbtn {
     width: 120px;
     height: 100%;
     background-color: #F9BB0C;
@@ -534,16 +565,16 @@ width: 100%;
     text-transform: uppercase;
 }
 
-.stakeall_btn:{
+.stakeall_btn: {
     background-image: url("./assets/StakeAll.PNG");
 }
 
 
-.stakeall_btn:hover{
+.stakeall_btn:hover {
     background-image: url("./assets/stakeall_hover.PNG");
 }
 
-.homebtn{
+.homebtn {
     background: none;
     width: auto;
     height: 80px;
@@ -553,10 +584,10 @@ width: 100%;
     z-index: 2;
     align-items: center;
     justify-content: center;
-    pointer-events: auto; 
+    pointer-events: auto;
 }
 
-.aboutusbtn{
+.aboutusbtn {
     width: 300px;
     height: 120px;
     border-radius: 5px;
@@ -566,7 +597,7 @@ width: 100%;
     justify-content: center;
 }
 
-.balance{
+.balance {
     margin-top: 20px;
     width: 100%;
     display: flex;
@@ -575,7 +606,7 @@ width: 100%;
     font-size: 26px;
 }
 
-.barbtn{
+.barbtn {
     background: none;
     margin: 40px;
     width: 120px;
@@ -586,22 +617,22 @@ width: 100%;
     font-size: 16px;
 }
 
-.barbtn:hover{
+.barbtn:hover {
     transition-duration: 0.5s;
-    transform: scale(1.1,1.1);
+    transform: scale(1.1, 1.1);
 }
 
-.levelbtn:hover{
+.levelbtn:hover {
     transition-duration: 0.5s;
-    transform: scale(0.9,0.9);
+    transform: scale(0.9, 0.9);
 }
 
-.content-div{
+.content-div {
     width: 100%;
     height: 100%;
 }
 
-.level{
+.level {
     width: 90%;
     height: 100%;
     background-color: #F9BB0C;
@@ -612,11 +643,11 @@ width: 100%;
     margin-top: 1px;
     border-radius: 5px;
     font-weight: 900;
-    text-transform:uppercase;
+    text-transform: uppercase;
     margin: auto;
 }
 
-.n{
+.n {
     width: 90px;
     height: 100%;
     background-color: #D9490D;
@@ -628,7 +659,7 @@ width: 100%;
     margin-right: 2px;
     margin-top: 1px;
     border-radius: 5px;
-    text-transform:uppercase;
+    text-transform: uppercase;
 }
 
 #message {
@@ -645,7 +676,7 @@ width: 100%;
     transform: translate(-50%, 0);
 }
 
-.logoimg{
+.logoimg {
     text-align: center;
     justify-content: center;
     width: 100%;
@@ -665,37 +696,37 @@ width: 100%;
     margin: 0px 16px 8px 16px;
 }
 
-.btn:hover{
+.btn:hover {
     transition-duration: 0.1s;
-    transform: scale(1.2,1.2);
+    transform: scale(1.2, 1.2);
 }
 
 .maindiv::-webkit-scrollbar {
-    width:5px;
+    width: 5px;
 }
 
 body::-webkit-scrollbar {
-    width:5px;
+    width: 5px;
     background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
     border-radius: 5px;
     background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    box-shadow:transparent;
+    box-shadow: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    box-shadow:transparent;
+    box-shadow: transparent;
 }
 
-.token{
+.token {
     float: left;
     margin-left: 20px;
 }
@@ -706,7 +737,7 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
 }
 
-.lds-circle > div {
+.lds-circle>div {
     display: inline-block;
     width: 80px;
     height: 80px;
@@ -715,23 +746,29 @@ body::-webkit-scrollbar-thumb {
     background: #D9490D;
     animation: lds-circle 2.4s cubic-bezier(0, 0.2, 0.8, 1) infinite;
 }
+
 @keyframes lds-circle {
-    0%, 100% {
+
+    0%,
+    100% {
         animation-timing-function: cubic-bezier(0.5, 0, 1, 0.5);
     }
+
     0% {
         transform: rotateY(0deg);
     }
+
     50% {
         transform: rotateY(1800deg);
         animation-timing-function: cubic-bezier(0, 0.5, 0.5, 1);
     }
+
     100% {
         transform: rotateY(3600deg);
     }
 }
 
-#loader{
+#loader {
     margin-top: 100px;
     width: 100%;
     display: inline-block;
@@ -740,7 +777,7 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
 }
 
-#lvlloader{
+#lvlloader {
     margin-top: 100px;
     width: 100%;
     display: inline-block;
@@ -749,40 +786,42 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
 }
 
-#lvlimg{
+#lvlimg {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    border:5px solid #D9490D;
+    border: 5px solid #D9490D;
 }
-.lvlimg:hover{
+
+.lvlimg:hover {
     transform: scaleX(-1);
 }
 
-.loadingText{
+.loadingText {
     text-align: center;
     font-size: 30px;
     color: white;
     font-weight: 800;
 }
 
-.rates{
+.rates {
     text-align: center;
     display: flex;
     justify-content: center;
-    margin-left: -15px;
-    padding-top: 8.5px;
-    font-size: 25px;
+    float: left;
+    margin-left: 25px;
+    padding-top: 10px;
+    font-size: 22px;
 }
 
-.btnpanel{
+.btnpanel {
     width: auto;
     height: auto;
     min-height: auto;
     order: 1;
     display: grid;
     grid-template-columns: auto auto auto;
-    -ms-grid-column-align:start;
+    -ms-grid-column-align: start;
     justify-content: center;
     padding-left: 20%;
     padding-right: 20%;
@@ -794,12 +833,12 @@ body::-webkit-scrollbar-thumb {
     place-items: center;
 }
 
-.qtycontainer{
+.qtycontainer {
     width: 150px;
     height: auto;
 }
 
-.inc{
+.inc {
     position: absolute;
     margin-top: 10px;
     font-family: Dog;
@@ -811,7 +850,7 @@ body::-webkit-scrollbar-thumb {
     color: #eea88f;
 }
 
-.parentdiv{
+.parentdiv {
     margin-top: 10px;
     background-image: url("./assets/Incrementor1.PNG");
     width: 150px;
@@ -822,7 +861,7 @@ body::-webkit-scrollbar-thumb {
     background-size: 100%;
 }
 
-.incrementor-text{
+.incrementor-text {
     width: 40px;
     padding: 5px;
     font-size: 18px;
@@ -830,20 +869,21 @@ body::-webkit-scrollbar-thumb {
     font-family: Dog;
 }
 
-.incrementor-btn{
+.incrementor-btn {
     margin-top: 6px;
     width: 30px;
     height: 55%;
     border: none;
     background: transparent;
     z-index: 10;
+    border: 1px solid black;
 }
 
 input[type=number]::-webkit-inner-spin-button {
     opacity: 1;
-  }
+}
 
-.incrementor{
+.incrementor {
     margin-top: 10px;
     font-family: Dog;
     height: auto;
@@ -852,136 +892,133 @@ input[type=number]::-webkit-inner-spin-button {
     text-align: center;
 }
 
-@media only screen and (max-width: 600px) and (min-width: 360px) {
+@media only screen and (max-width: 600px) {
 
-body{
-    overflow-x: auto;
-}
+    body {
+        overflow-x: hidden;
+    }
 
-.tablecontainerShop{
-  margin: 0px 0px 0px -200px;
-}
+    .tablecontainerShop {
+        margin: 0px 0px 0px -200px;
+    }
 
-.nav-items{
-    display: flex;
-    justify-content: center;
-    width: 135%;
-    padding-left: 100px;
-}
-nav .li{
-    list-style: none;
-}
+    .nav-items {
+        display: flex;
+        justify-content: center;
+        width: 135%;
+        padding-left: 100px;
+    }
 
-.logoimg{
-    width: auto;
-    height: 90px;
-}
+    nav .li {
+        list-style: none;
+    }
+
+    .logoimg {
+        width: auto;
+        height: 90px;
+    }
 
 
-.btn{
-    width: 70px;
-    height: 30px;
-}
+    .btn {
+        width: 70px;
+        height: 30px;
+    }
 
-.roadmapTitle{
-    margin-top: 50px;
-    width: 250px;
-    height: 80px;
-}
+    .roadmapTitle {
+        margin-top: 50px;
+        width: 250px;
+        height: 80px;
+    }
 
-.roadmap{
-    width: 110%;
-    height: auto;
-}
+    .roadmap {
+        width: 110%;
+        height: auto;
+    }
 
-.barbtn{
-    width: 100px;
-    height: 40px;
-    margin: 20px;
-}
+    .barbtn {
+        width: 100px;
+        height: 40px;
+        margin: 20px;
+    }
 
-.blc{
-    width: 15px;
-}
+    .blc {
+        width: 15px;
+    }
 
-.balance{
-    margin-top: 10px;
-    font-size: 14px;
-    width: 120px;
-}
+    .balance {
+        margin-top: 10px;
+        font-size: 14px;
+        width: 120px;
+    }
 
-.returnbtn{
-    width: 40px;
-    height: 40px;
-    margin: 20px;
-}
+    .returnbtn {
+        width: 40px;
+        height: 40px;
+        margin: 20px;
+    }
 
-.homediv{
-    width: 140%;
-    height: auto;
-}
+    .homediv {
+        width: 140%;
+        height: auto;
+    }
 
-.btnpanel{
-    width: 83%;
-    height: auto;
-}
+    .btnpanel {
+        width: 83%;
+        height: auto;
+    }
 
-.homebtn{
-    width: auto;
-    max-width: 115px;
-    height: auto;
-    max-height: 82px;
-}
+    .homebtn {
+        width: auto;
+        max-width: 115px;
+        height: auto;
+        max-height: 82px;
+    }
 
-.aboutusbtn{
-    width: 80px;
-    height: auto;
-}
+    .aboutusbtn {
+        width: 80px;
+        height: auto;
+    }
 
-.img{
-    width: 25px;
-    height: 25px;
-}
+    .img {
+        width: 25px;
+        height: 25px;
+    }
 
-.stakeAllbtn{
-    margin-left: 20px;
-}
+    .stakeAllbtn {
+        margin-left: 20px;
+    }
 
-.maindiv{
-    width: auto;
-    justify-content: center;
-    align-items: center;
-}
+    .maindiv {
+        width: auto;
+        justify-content: center;
+        align-items: center;
+    }
 
-.itemwrapper {
-    width: auto;
-}
+    .itemwrapper {
+        width: auto;
+    }
 
-.main-content{
-    width: 100%;
-    height: auto;
-    margin-left: 80px;
-}
+    .main-content {
+        width: 100%;
+        height: auto;
+        margin-left: 80px;
+    }
 
-.main-content li{
-    list-style: none;
-}
+    .main-content li {
+        list-style: none;
+    }
 
-.packimg {
-    width: 200px;
-    height: auto;
-    padding: 5px;
-}
+    .packimg {
+        width: 200px;
+        height: auto;
+        padding: 5px;
+    }
 
-.inc{
-    width: 35px;
-    height: 30px;
-    border-radius: 5px;
-    font-family: Dog;
-    font-size: 15px;
-}
-
-body{
-    overflow-x: hidden;
+    .inc {
+        width: 35px;
+        height: 30px;
+        border-radius: 5px;
+        font-family: Dog;
+        font-size: 15px;
     }
 }

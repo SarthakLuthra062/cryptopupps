@@ -1,27 +1,24 @@
 const wax = new waxjs.WaxJS({
-  rpcEndpoint: 'https://waxtestnet.greymass.com',
+  rpcEndpoint: 'https://wax.greymass.com',
   tryAutoLogin: false
 });
 const transport = new AnchorLinkBrowserTransport();
-    const anchorLink = new AnchorLink({
-      transport,
-      chains: [{
-        chainId: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12',
-        nodeUrl: 'https://waxtestnet.greymass.com',
-      }],
-    });
-const dapp = "CryptoPupps";
-const endpoint = "testnet.wax.pink.gg";
-const tokenContract = {
-  WAX: "eosio.token"
-};
+const anchorLink = new AnchorLink({
+  transport,
+  chains: [{
+    chainId: '1064487b3cd1a897ce03ae5b6a865651747e2e152090f99c1d19d44e01aea5a4',
+    nodeUrl: 'https://wax.greymass.com',
+  }],
+});
+const dapp = "Cryptopups";
+const endpoint = "wax.pink.gg";
 
 var t = 0;
 
 var anchorAuth = "owner";
 var homescreen = true;
 var loggedIn = false;
-var collection = 'puppyteststk';
+var collection = 'cryptopuppyz';
 var switchtoshop = false;
 var canclick = false;
 var mainDiv = document.getElementById("maindiv");
@@ -32,43 +29,38 @@ main();
 async function main() {
   if (!loggedIn)
     autoLogin();
-  else if(loggedIn)
-  {
-    if(!homescreen)
-    {
+  else if (loggedIn) {
+    if (!homescreen) {
       clearUi();
       loader.display = "block";
 
       balancepromise = GetBalance();
       balance = await balancepromise;
-      console.log("balance " + new Date().toUTCString());
 
-      pack = GetShop();
-      pack_data = await pack;
-      switchtoshop?PopulateShop(pack_data,balance):"";
-      console.log("pack " + new Date().toUTCString());
+      if(switchtoshop){
+        pack = GetShop();
+        pack_data = await pack;
+        switchtoshop ? PopulateShop(pack_data, balance) : "";
+      }
 
-      if(!switchtoshop){
+      else if (!switchtoshop) {
         ratespromise = GetRates();
         rates = await ratespromise;
-        console.log("rate " + new Date().toUTCString());
+        console.log(rates);
 
         assetPromise = GetAssets(collection, rates);
         assets = await assetPromise;
-        console.log("asset " + new Date().toUTCString());
+        console.log(assets);
 
         stakepromise = FilterStaked(assets);
         staked = await stakepromise;
-        console.log("stk " + new Date().toUTCString());
 
         userpromise = GetUser(rates, staked);
         user = await userpromise;
-        console.log("user " + new Date().toUTCString());
 
         unstaked = FilterUnstaked(assets, staked);
-        !homescreen?PopulateMenu(rates,staked, unstaked, balance):"";
+        !homescreen ? PopulateMenu(rates, staked, unstaked, balance) : "";
         canclick = true;
-        console.log("ui " + new Date().toUTCString());
       }
     }
   }
@@ -145,7 +137,7 @@ async function stakeasset(assetId) {
   }
 }
 
-async function buypack(template,price,qty){
+async function buypack(template, price, qty) {
   if (loggedIn) {
 
     HideMessage();
@@ -153,7 +145,7 @@ async function buypack(template,price,qty){
     try {
       totalPrice = (price * qty).toFixed(4);
       const result = await wallet_transact([{
-        account: "puppyzztoken",
+        account: tokenContract,
         name: "transfer",
         authorization: [{
           actor: wallet_userAccount,
@@ -162,7 +154,7 @@ async function buypack(template,price,qty){
         data: {
           from: wallet_userAccount,
           to: marketContract,
-          quantity: totalPrice.toString() + " "+ symbol, 
+          quantity: totalPrice.toString() + " " + symbol,
           memo: template + "%pack"
         },
       }, ]);
@@ -240,7 +232,7 @@ async function claimbalance() {
       balance = await balancepromise;
       document.getElementById('balance').innerHTML = balance.toLocaleString('en-US') + " " + symbol;
     } catch (e) {
-      ShowToast(e.message);
+      ShowToast("Nothing To Claim !");
     }
 
   } else {
@@ -269,8 +261,8 @@ async function FilterStaked(assets) {
   var path = "/v1/chain/get_table_rows";
   var data = JSON.stringify({
     json: true,
-    code: "puppyzzstake",
-    scope: "puppyzzstake",
+    code: contract,
+    scope: contract,
     table: "nfts",
     key_type: `i64`,
     index_position: 2,
@@ -288,12 +280,11 @@ async function FilterStaked(assets) {
 
   const body = await response.json();
   var data = body.rows;
-  if(typeof data[0] !== "undefined"){
+  if (typeof data[0] !== "undefined") {
     for (let i = 0; i < assets.length; i++) {
-      for(let j=0;j<data.length;j++)
-      {
-    if(data[j].asset_id == assets[i].asset_id && data[j].account == wallet_userAccount)
-    results.push(assets[i]);
+      for (let j = 0; j < data.length; j++) {
+        if (data[j].asset_id == assets[i].asset_id && data[j].account == wallet_userAccount)
+          results.push(assets[i]);
       }
     }
   }
@@ -306,8 +297,8 @@ async function GetUser(rates) {
 
   var data = JSON.stringify({
     json: true,
-    code: "puppyzzstake",
-    scope: "puppyzzstake",
+    code: contract,
+    scope: contract,
     table: "user",
     limit: 1,
     lower_bound: wallet_userAccount,
@@ -330,86 +321,84 @@ async function GetUser(rates) {
   };
   if (body.rows.length != 0) {
     for (let j = 0; j < body.rows[0].data.length; j++) {
-    var datex=Date(body.rows[0].data[j].last_claim);
-    var now= new Date();
-    var date=Math.floor(now/1000);    
-    const utcMilllisecondsSinceEpoch = now.getTime() 
-    const utcSecondsSinceEpoch = Math.round(utcMilllisecondsSinceEpoch / 1000) 
-    
-    var ts = -utcSecondsSinceEpoch+ 3600+ body.rows[0].data[j].last_claim;
-    user.next_claim=ts;
-    }
-    if(t!=0)
-    restartTimer();
+      var datex = Date(body.rows[0].data[j].last_claim);
+      var now = new Date();
+      var date = Math.floor(now / 1000);
+      const utcMilllisecondsSinceEpoch = now.getTime()
+      const utcSecondsSinceEpoch = Math.round(utcMilllisecondsSinceEpoch / 1000)
 
-   startTimer(ts);
+      var ts = -utcSecondsSinceEpoch + 3600 + body.rows[0].data[j].last_claim;
+      user.next_claim = ts;
+    }
+    if (t != 0)
+      restartTimer();
+
+    startTimer(ts);
 
   }
   return user;
 }
 
 function startTimer(duration) {
-  var timer = duration, minutes, seconds;
-  if(t!=0) restartTimer(t);
-  t=setInterval(function () {
-      hours=  parseInt(timer / 3600, 10)
-      minutes = parseInt((timer-hours*3600) / 60,10);
-      seconds = parseInt(timer % 60, 10);
+  var timer = duration,
+    minutes, seconds;
+  if (t != 0) restartTimer(t);
+  t = setInterval(function () {
+    hours = parseInt(timer / 3600, 10)
+    minutes = parseInt((timer - hours * 3600) / 60, 10);
+    seconds = parseInt(timer % 60, 10);
 
-      hours = hours < 10 ? "0" + hours : hours;
+    hours = hours < 10 ? "0" + hours : hours;
 
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds; 
-      display= minutes+":"+seconds;
-      if (--timer < 0) {
-          timer =0;
-      }
-  },1000);
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    display = minutes + ":" + seconds;
+    if (--timer < 0) {
+      timer = 0;
+    }
+  }, 1000);
 }
 
-function restartTimer(t)
-{
+function restartTimer(t) {
   clearInterval(t);
 }
 
-async function GetAssets(colc,rates) {
+async function GetAssets(colc, rates) {
   let results = [];
   var path = "atomicassets/v1/assets?collection_name=" + colc + "&owner=" + wallet_userAccount + "&page=1&limit=1000&order=desc&sort=asset_id";
-  const response = await fetch("https://" + "test.wax.api.atomicassets.io/" + path, {
+  const response = await fetch("https://" + "wax.api.atomicassets.io/" + path, {
     headers: {
       "Content-Type": "text/plain"
     },
     method: "POST",
   });
 
-  const body = await response.json();
-  level = await GetStakingTableRows();
-
-  if(level != 0){
-    for(i = 0; i < body.data.length; i++){
-      var data = body.data[i];
-      for(n = 0; n < level.length; n++){
-        if(data.template.template_id == level[n].id){
-          var rate = 0;
-          for (let j = 0; j < rates.length; j++) {
-            if (data.collection.collection_name == rates[j].pool) {
-              for (let k = 0; k < rates[j].levels.length; k++) {
-                if (rates[j].levels[k].key == level[n].level) {
-                  rate = parseFloat(rates[j].levels[k].value);
-                }
+  const body = Object.values((await response.json()).data);
+  if (body.length != 0) {
+    for (const assetData of body) {
+      if (typeof (assetData.template.immutable_data.Rarity) != 'undefined') {
+        var rate = 0;
+        for (const rateData of rates) {
+          if (assetData.collection.collection_name == rateData.pool) {
+            for (const levelData of rateData.levels) {
+              if (levelData.key == assetData.template.immutable_data.Rarity) {
+                rate = parseFloat(levelData.value);
+                break;
               }
             }
+            break;
           }
-          results.push({
-            asset_id: data.asset_id,
-            img: data.data.img,
-            name: data.name,
-            rateperday: rate.toFixed(4)*1,
-          });
         }
+        results.push({
+          asset_id: assetData.asset_id,
+          img: assetData.template.immutable_data.img,
+          name: assetData.template.immutable_data.name,
+          rateperday: rate.toFixed(4) * 1,
+        });
       }
     }
-  }
+  } else
+    return results;
   return results;
 }
 
@@ -418,8 +407,8 @@ async function GetRates() {
 
   var data = JSON.stringify({
     json: true,
-    code: "puppyzzstake",
-    scope: "puppyzzstake",
+    code: contract,
+    scope: contract,
     table: "collections",
     limit: 1000,
   });
@@ -434,7 +423,6 @@ async function GetRates() {
 
   var rates = [];
   const body = await response.json();
-  console.log(body);
 
   if (body.rows.length != 0) {
     for (let i = 0; i < body.rows.length; i++) {
@@ -448,49 +436,13 @@ async function GetRates() {
   return rates;
 }
 
-async function GetStakingTableRows() {
-
-  var path = "/v1/chain/get_table_rows";
-
-  var data = JSON.stringify({
-    json: true,
-    code: "puppyzzstake",
-    scope: "puppyzzstake",
-    table: "leveltemp",
-    limit: 1000,
-  });
-
-  const response = await fetch("https://" + endpoint + path, {
-    headers: {
-      "Content-Type": "text/plain"
-    },
-    body: data,
-    method: "POST",
-  });
-
-  const body = await response.json();
-  var ids = [];
-  if (body.rows.length != 0) {
-    for (let i = 0; i < body.rows.length; i++) {
-      for (let j = 0; j < body.rows[i].template_ids.length; j++) {
-        ids.push({
-          id:body.rows[i].template_ids[j],
-          level:body.rows[i].level
-        });
-      }
-    }
-    return ids;
-  }
-  return 0;
-}
-
 async function GetBalance() {
 
   var path = "/v1/chain/get_table_rows";
 
   var data = JSON.stringify({
     json: true,
-    code: "puppyzztoken",
+    code: tokenContract,
     scope: wallet_userAccount,
     table: "accounts",
     limit: 1000,
@@ -505,13 +457,13 @@ async function GetBalance() {
   });
 
   const body = await response.json();
-  balance=parseFloat(0.0000);
+  balance = parseFloat(0.0000);
   if (body.rows.length != 0) {
     for (j = 0; j < body.rows.length; j++) {
       console.log(body.rows[j].balance);
       if (body.rows[j].balance.includes(symbol))
         balance = parseFloat(body.rows[j].balance).toFixed(4);
-        return balance;
+      return balance;
     }
   }
   return balance;
@@ -522,8 +474,8 @@ async function GetShop() {
   var path = "/v1/chain/get_table_rows";
   var data = JSON.stringify({
     json: true,
-    code: "puppyzzmarkt",
-    scope: "puppyzzmarkt",
+    code: marketContract,
+    scope: marketContract,
     table: "listings",
     limit: 1000,
   });
@@ -542,27 +494,27 @@ async function GetShop() {
 
   if (body.rows.length != 0) {
     for (j = 0; j < body.rows.length; j++) {
-      r = GetTemplateData(body.rows[j].collection_name,body.rows[j].template_id);
+      r = GetTemplateData(body.rows[j].collection_name, body.rows[j].template_id);
       result = await r;
       cost = body.rows[j].price.split(" ");
       packs.push({
         name: result[0].name,
         img: result[0].img,
         price: cost[0],
-        template:body.rows[j].template_id,
-        id:body.rows[j].id,
-        total:body.rows[j].total,
-        available:body.rows[j].available,
-        schema_name:body.rows[j].schema_name
+        template: body.rows[j].template_id,
+        id: body.rows[j].id,
+        total: body.rows[j].total,
+        available: body.rows[j].available,
+        schema_name: body.rows[j].schema_name
       });
     }
   }
   return packs;
 }
 
-async function GetTemplateData(colc, id){
+async function GetTemplateData(colc, id) {
   var path = "atomicassets/v1/templates/" + colc + "/" + id;
-  const response = await fetch("https://test.wax.api.atomicassets.io/" + path, {
+  const response = await fetch("https://wax.api.atomicassets.io/" + path, {
     headers: {
       "Content-Type": "text/plain"
     },
@@ -578,29 +530,29 @@ async function GetTemplateData(colc, id){
   return result;
 }
 
-function PopulateShop(pack_data,balance){
+function PopulateShop(pack_data, balance) {
 
   document.getElementById("letsstake").src = "./assets/pupmarket.PNG";
   document.getElementById("letsstake").style.visibility = "visible";
-  let src = "https://ipfs.wecan.dev/ipfs/";
+  let src = "https://ipfs.io/ipfs/";
   var blend_data = [];
   var packData = [];
-  for(let data of pack_data){
-    if(data.schema_name == "blends")
+  for (let data of pack_data) {
+    if (data.schema_name == "blends")
       blend_data.push(data);
     else
       packData.push(data);
   }
   var data = [];
   console.log(switchtoblends);
-  if(!switchtoblends)
+  if (!switchtoblends)
     data = packData;
   else
     data = blend_data;
 
-  if(data.length < 1)
+  if (data.length < 1)
     ShowToast("No Listing Yet");
-  for(var index = 0; index < data.length; ++index){
+  for (var index = 0; index < data.length; ++index) {
 
     var items = document.createElement('div');
     items.className = "shopwrapper";
@@ -643,20 +595,18 @@ function PopulateShop(pack_data,balance){
     let price = data[index].price
     rate.appendChild(ratesText);
     items.appendChild(rate);
-    minusbtn.onclick = async function(){
-      if(Text.textContent > 1){
-        Text.textContent = parseFloat(Text.textContent) - 1 ;
+    minusbtn.onclick = async function () {
+      if (Text.textContent > 1) {
+        Text.textContent = parseFloat(Text.textContent) - 1;
         ratesText.textContent = (parseFloat(price) * parseFloat(Text.textContent)).toFixed(4);
-      }
-      else
+      } else
         ShowToast("Minimum value cannot be less than 1");
     };
-    plusbtn.onclick = async function(){
-      if(Text.textContent < 5){
-        Text.textContent = parseFloat(Text.textContent) + 1 ;
+    plusbtn.onclick = async function () {
+      if (Text.textContent < 5) {
+        Text.textContent = parseFloat(Text.textContent) + 1;
         ratesText.textContent = (parseFloat(price) * parseFloat(Text.textContent)).toFixed(4);
-      }
-      else
+      } else
         ShowToast("Maximum limit is 5");
     };
 
@@ -665,24 +615,27 @@ function PopulateShop(pack_data,balance){
     btn.type = "image";
     btn.src = "./assets/buybtn.PNG";
     btn.id = data[index].id;
-    btn.onclick = async function buy(){
-      buypack(btn.id,price,parseFloat(Text.textContent));
+    btn.onclick = async function buy() {
+      buypack(btn.id, price, parseFloat(Text.textContent));
     }
     div.appendChild(items);
     div.appendChild(btn);
     mainDiv.appendChild(div);
   }
-    loader.display = "none";
-    mainDiv.style.display = "block";
+  loader.display = "none";
+  mainDiv.style.display = "block";
 }
 
-function PopulateMenu(rates,staked, unstakeasset, balance) {
-  let src = "https://ipfs.wecan.dev/ipfs/";
-  var all_assets = [{staked,unstakeasset}];
+function PopulateMenu(rates, staked, unstakeasset, balance) {
+  let src = "https://ipfs.io/ipfs/";
+  var all_assets = [{
+    staked,
+    unstakeasset
+  }];
   console.log(all_assets);
   var pools = "";
   var ids = [];
-  var stakepower=0.00;
+  var stakepower = 0.00;
   for (let i = 0; i < unstaked.length; i++) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
@@ -694,16 +647,14 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
   user_balance.textContent = "User Balance : " + balance.toLocaleString('en-US') + " " + symbol;
   document.getElementById('balance').appendChild(user_balance);
 
-  if(all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1){
+  if (all_assets[0].unstakeasset.length < 1 && all_assets[0].staked.length < 1) {
     loader.display = "none";
     document.getElementById('staking').style.display = "block";
     ShowToast("No Assets To Display !");
     return;
-  }
-  else
-  {
+  } else {
     unstaked.forEach(element => {
-      stakepower+=element.rateperday;
+      stakepower += element.rateperday;
     });
   }
 
@@ -736,8 +687,9 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
     let stkbtn = document.createElement('button');
     stkbtn.className = "stkbtn"
     stkbtn.id = all_assets[0].unstakeasset[index].asset_id;
-    stkbtn.onclick = async function s(){
-    stakeasset(stkbtn.id)};
+    stkbtn.onclick = async function s() {
+      stakeasset(stkbtn.id)
+    };
 
     bar.appendChild(stkbtn);
     div.appendChild(items);
@@ -749,68 +701,69 @@ function PopulateMenu(rates,staked, unstakeasset, balance) {
 
   for (var index = 0; index < all_assets[0].staked.length; ++index) {
 
-      var items = document.createElement('div');
-      items.className = "itemwrapper";
-      items.id = index;
+    var items = document.createElement('div');
+    items.className = "itemwrapper";
+    items.id = index;
 
-      var div = document.createElement('div');
-      div.id = 'tablecontainer';
-      div.className = 'tablecontainer';
+    var div = document.createElement('div');
+    div.id = 'tablecontainer';
+    div.className = 'tablecontainer';
 
-      img2 = document.createElement('img');
-      img2.src = src + all_assets[0].staked[index].img;
-      img2.className = 'nftimg';
-      items.appendChild(img2);
+    img2 = document.createElement('img');
+    img2.src = src + all_assets[0].staked[index].img;
+    img2.className = 'nftimg';
+    items.appendChild(img2);
 
-      var ratesText = document.createElement('p');
-      ratesText.className = "rates";
-      var rate = document.createElement('div');
-      rate.className = 'ratesText';
-      ratesText.textContent = all_assets[0].staked[index].rateperday.toFixed(4);
-      rate.appendChild(ratesText);
-      items.appendChild(rate);
+    var ratesText = document.createElement('p');
+    ratesText.className = "rates";
+    var rate = document.createElement('div');
+    rate.className = 'ratesText';
+    ratesText.textContent = all_assets[0].staked[index].rateperday.toFixed(4);
+    rate.appendChild(ratesText);
+    items.appendChild(rate);
 
-      var bar = document.createElement('div');
-      bar.className = "bar";
+    var bar = document.createElement('div');
+    bar.className = "bar";
 
-      let stkbtn = document.createElement('button');
-      stkbtn.className = "unstkbtn";
-      stkbtn.id = all_assets[0].staked[index].asset_id;
-      stkbtn.onclick = async function s(){
-      assetunstake(stkbtn.id);};
+    let stkbtn = document.createElement('button');
+    stkbtn.className = "unstkbtn";
+    stkbtn.id = all_assets[0].staked[index].asset_id;
+    stkbtn.onclick = async function s() {
+      assetunstake(stkbtn.id);
+    };
 
-      bar.appendChild(stkbtn);
-      div.appendChild(items);
-      div.appendChild(bar);
-      mainDiv.appendChild(div);
-    }
-    loader.display = "none";
-    document.getElementById('balance').style.display = "block";
-    document.getElementById('staking').style.display = "block";
-    mainDiv.style.display = "block";
+    bar.appendChild(stkbtn);
+    div.appendChild(items);
+    div.appendChild(bar);
+    mainDiv.appendChild(div);
+  }
+  loader.display = "none";
+  document.getElementById('balance').style.display = "block";
+  document.getElementById('staking').style.display = "block";
+  mainDiv.style.display = "block";
 }
 
-async function returnbtn(){
+async function returnbtn() {
   var result = window.getComputedStyle(document.getElementById('loader'), '').display;
-  if(result != "block"){
+  if (result != "block") {
     await clearUi();
-    if(switchtoshop)
+    if (switchtoshop)
       shopPanel(true)
-    else{
+    else {
       document.getElementById("home").style.visibility = "visible";
       document.getElementById("team").style.display = "block";
       document.getElementById("story").style.display = "block";
       document.getElementById("whitepaper").style.display = "block";
       document.getElementById("switchpanel").style.display = "block";
-      document.getElementById("switchpanel2").style.display = "block"; 
+      document.getElementById("switchpanel2").style.display = "block";
     }
   }
 }
 
-async function shopPanel(index){
+async function shopPanel(index) {
   loader.display = "block";
-  if(index){
-    homescreen?homescreen=false:"";
+  if (index) {
+    homescreen ? homescreen = false : "";
     switchtoshop = false;
     document.getElementById('return').style.visibility = "visible";
     document.getElementById("team").style.display = "none";
@@ -825,7 +778,7 @@ async function shopPanel(index){
     var packs = document.createElement('img');
     packs.className = 'shopPanelbtn';
     packs.src = "./assets/shopPanel_packs.PNG";
-    packs.onclick = async function(){
+    packs.onclick = async function () {
       switchtoblends = false;
       switchshop(true);
     }
@@ -833,30 +786,30 @@ async function shopPanel(index){
     var blends = document.createElement('img');
     blends.className = 'shopPanelbtn';
     blends.src = "./assets/shopPanel_blends.PNG";
-    blends.onclick = async function(){
+    blends.onclick = async function () {
       switchtoblends = true;
       switchshop(true);
     }
-    
+
     var market = document.createElement('img');
     market.className = 'shopPanelbtn';
     market.src = "./assets/shopPanel_market.PNG";
-    market.onclick = async function(){
-      window.open('https://neftyblocks.com/c/cryptopuppyz','_blank');
+    market.onclick = async function () {
+      window.open('https://neftyblocks.com/c/cryptopuppyz', '_blank');
     }
-    
+
     var marketAH = document.createElement('img');
     marketAH.className = 'shopPanelbtn';
     marketAH.src = "./assets/shopPanel_marketAH.PNG";
-    marketAH.onclick = async function(){
-      window.open('https://wax.atomichub.io/market?collection_name=cryptopuppyz&order=desc&sort=created&symbol=WAX','_blank');
+    marketAH.onclick = async function () {
+      window.open('https://wax.atomichub.io/market?collection_name=cryptopuppyz&order=desc&sort=created&symbol=WAX', '_blank');
     }
 
     var creatorSale = document.createElement('img');
     creatorSale.className = 'shopPanelbtn';
     creatorSale.src = "./assets/shopPanel_creatorSale.PNG";
-    creatorSale.onclick = async function(){
-      window.open('https://wax.atomichub.io/explorer/account/burb2.wam?collection_name=cryptopuppyz&order=desc&seller=burb2.wam&sort=created&state=0,1,4&symbol=WAX#listings','_blank');
+    creatorSale.onclick = async function () {
+      window.open('https://wax.atomichub.io/explorer/account/burb2.wam?collection_name=cryptopuppyz&order=desc&seller=burb2.wam&sort=created&state=0,1,4&symbol=WAX#listings', '_blank');
     }
 
     var linebreak = document.createElement("br");
@@ -878,38 +831,37 @@ async function shopPanel(index){
 }
 
 async function switchshop(index) {
-    if(!loggedIn){
-      ShowToast("Please Login into your WAX Account");
-      WalletListVisible(!0);
-    }
-    else{
-      homescreen?homescreen=false:"";
-      clearUi();
-      document.getElementById("switchpanel").style.display = "none";
-      document.getElementById("switchpanel2").style.display = "none";
-      document.getElementById("home").style.visibility = "hidden";
-      document.getElementById("team").style.display = "none";
-      document.getElementById("story").style.display = "none";
-      document.getElementById("whitepaper").style.display = "none";
-      switchtoshop = index;
-      await main();
-    }
+  if (!loggedIn) {
+    ShowToast("Please Login into your WAX Account");
+    WalletListVisible(!0);
+  } else {
+    homescreen ? homescreen = false : "";
+    clearUi();
+    document.getElementById("switchpanel").style.display = "none";
+    document.getElementById("switchpanel2").style.display = "none";
+    document.getElementById("home").style.visibility = "hidden";
+    document.getElementById("team").style.display = "none";
+    document.getElementById("story").style.display = "none";
+    document.getElementById("whitepaper").style.display = "none";
+    switchtoshop = index;
+    await main();
+  }
 }
 
-async function clearUi(){
+async function clearUi() {
   document.getElementById('staking').style.display = "none";
   document.getElementById('balance').style.display = "none";
   document.getElementById("letsstake").style.visibility = "hidden";
   mainDiv.style.display = "none";
-  shopPaneldiv.style.display="none";
+  shopPaneldiv.style.display = "none";
   clearAppends("maindiv");
   clearAppends("shopPaneldiv")
   clearAppends("balance");
 }
 
-async function clearAppends(idTag){
+async function clearAppends(idTag) {
   var div = document.getElementById(idTag);
-  if(div.children.length >= 1){
+  if (div.children.length >= 1) {
     var child = div.lastElementChild;
     while (child) {
       div.removeChild(child);
@@ -939,7 +891,7 @@ function TimeInputChanged() {
     document.getElementById("timeunit").innerHTML = value > 1 ? "days" : "day";
   }
   var oldCustom = document.getElementById("custominput").value;
-  !homescreen?PopulateMenu():"";
+  !homescreen ? PopulateMenu() : "";
   document.getElementById("custominput").value = oldCustom;
   CustomInputChanged();
 }
@@ -1071,7 +1023,7 @@ async function logout() {
   document.getElementById("loggedout").style.display = "block";
   document.getElementById('staking').style.display = "none";
   document.getElementById('return').style.visibility = "hidden";
-  returnbtn(); 
+  returnbtn();
   loggedIn = false;
   HideMessage();
 }
@@ -1102,7 +1054,6 @@ async function wallet_isAutoLoginAvailable() {
     return await wax.isAutoLoginAvailable();
   }
 }
-
 
 async function wallet_selectWallet(walletType) {
   useAnchor = walletType == "anchor";
