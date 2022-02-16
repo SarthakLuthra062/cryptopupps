@@ -370,7 +370,7 @@ nav .logo {
 }
 
 .nftimg {
-    width: 150px;
+    width: 140px;
     height: auto;
     padding: 10px;
 }
@@ -808,8 +808,7 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
     display: flex;
     justify-content: center;
-    float: left;
-    margin-left: 25px;
+    margin-left: -25px;
     padding-top: 10px;
     font-size: 22px;
 }
